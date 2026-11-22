@@ -7,7 +7,23 @@ import { useSound } from "./SoundProvider";
 const fmt = (t: number) => `${Math.floor(t / 60)}:${String(Math.floor(t % 60)).padStart(2, "0")}`;
 
 /** Video with custom controls in the site's style; pauses the music while playing. */
-export function VideoPlayer({ src, poster, label, autoLoop = false, className = "" }: { src: string; poster: string; label: string; autoLoop?: boolean; className?: string }) {
+export function VideoPlayer({
+  src,
+  poster,
+  label,
+  autoLoop = false,
+  className = "",
+  onProgress,
+  onEnded,
+}: {
+  src: string;
+  poster: string;
+  label: string;
+  autoLoop?: boolean;
+  className?: string;
+  onProgress?: (k: number) => void;
+  onEnded?: () => void;
+}) {
   const v = useRef<HTMLVideoElement>(null);
   const bar = useRef<HTMLDivElement>(null);
   const [playing, setPlaying] = useState(false);
@@ -29,7 +45,7 @@ export function VideoPlayer({ src, poster, label, autoLoop = false, className = 
   };
 
   return (
-    <div className={`group relative overflow-hidden bg-wine ${className}`}>
+    <div className={`group relative overflow-hidden bg-[#2a0614] ${className}`}>
       <video
         ref={v}
         src={src}
@@ -48,7 +64,12 @@ export function VideoPlayer({ src, poster, label, autoLoop = false, className = 
           setPlaying(false);
           duck(false);
         }}
-        onTimeUpdate={(e) => setT(e.currentTarget.currentTime)}
+        onEnded={onEnded}
+        onTimeUpdate={(e) => {
+          const el = e.currentTarget;
+          setT(el.currentTime);
+          if (onProgress && el.duration) onProgress(el.currentTime / el.duration);
+        }}
         onLoadedMetadata={(e) => setD(e.currentTarget.duration)}
         className="absolute inset-0 block size-full object-cover"
         onClick={toggle}
@@ -59,12 +80,13 @@ export function VideoPlayer({ src, poster, label, autoLoop = false, className = 
             type="button"
             onClick={toggle}
             aria-label={playing ? "Pausar" : "Reproducir"}
-            className={`absolute left-1/2 top-1/2 grid size-20 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-cream/95 text-rose shadow-2xl transition duration-500 ${playing ? "scale-75 opacity-0 group-hover:opacity-100" : ""}`}
+            className={`btn3d gold icon-only lg absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 !rounded-full transition-opacity duration-500 ${playing ? "opacity-0 group-hover:opacity-100" : ""}`}
+            style={{ width: 76, minHeight: 76 }}
           >
-            <Icon name={playing ? "pause" : "play"} className="size-9 translate-x-[1px]" />
+            <Icon name={playing ? "pause" : "play"} className="size-8 translate-x-[1px] text-wine" />
           </button>
-          <div className="absolute inset-x-3 bottom-3 flex items-center gap-3 rounded-full bg-black/35 px-4 py-2 text-sm font-semibold text-white backdrop-blur-md">
-            <button type="button" onClick={toggle} aria-label={playing ? "Pausar" : "Reproducir"} className="grid size-8 place-items-center rounded-full bg-white/15">
+          <div className="absolute inset-x-3 bottom-3 flex items-center gap-3 rounded-full bg-black/40 px-3 py-2 text-sm font-semibold text-white backdrop-blur-md">
+            <button type="button" onClick={toggle} aria-label={playing ? "Pausar" : "Reproducir"} className="grid size-9 place-items-center rounded-full bg-goldfoil text-wine">
               <Icon name={playing ? "pause" : "play"} className="size-4" />
             </button>
             <div
@@ -77,6 +99,7 @@ export function VideoPlayer({ src, poster, label, autoLoop = false, className = 
               aria-valuenow={Math.round(t)}
               aria-valuetext={`${fmt(t)} de ${fmt(d)}`}
               onPointerDown={(e) => {
+                e.stopPropagation();
                 e.currentTarget.setPointerCapture(e.pointerId);
                 seek(e.clientX);
               }}
@@ -84,11 +107,12 @@ export function VideoPlayer({ src, poster, label, autoLoop = false, className = 
               onKeyDown={(e) => {
                 if (e.key === "ArrowRight") v.current!.currentTime += 5;
                 if (e.key === "ArrowLeft") v.current!.currentTime -= 5;
+                e.stopPropagation();
               }}
               className="relative h-2 flex-1 cursor-pointer rounded-full bg-white/25"
             >
-              <div className="absolute inset-y-0 left-0 rounded-full bg-gold" style={{ width: `${d ? (t / d) * 100 : 0}%` }} />
-              <div className="absolute top-1/2 size-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white bg-gold" style={{ left: `${d ? (t / d) * 100 : 0}%` }} />
+              <div className="absolute inset-y-0 left-0 rounded-full bg-goldfoil" style={{ width: `${d ? (t / d) * 100 : 0}%` }} />
+              <div className="absolute top-1/2 size-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white bg-gold shadow" style={{ left: `${d ? (t / d) * 100 : 0}%` }} />
             </div>
             <span className="tabular-nums">{fmt(t)}</span>
           </div>
