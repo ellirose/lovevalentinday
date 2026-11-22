@@ -1,0 +1,19 @@
+# Private client material: kept local, never published
+docs/chat-history/
+docs/voice-notes/
+docs/client-references/
+docs/ai-notes/
+docs/requirements/
+docs/plan/
+docs/design/San Valentín 2027_ Dulce Romance-1.png
+Code/Calendario de San Valentín 2027.html
+
+# Build output and dependencies
+node_modules/
+.next/
+out/
+
+# Local tooling
+.vscode/
+.DS_Store
+Thumbs.db
