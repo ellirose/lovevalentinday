@@ -28,10 +28,10 @@ function ReactionDock({ caption, tags }: { caption: string; tags: string }) {
   const [saved, setSaved] = useState(false);
   return (
     <div className="mt-6">
-      <div className="flex items-center gap-1 rounded-full border border-white/15 bg-white/[0.07] p-1.5 backdrop-blur">
-        <LikeButton light />
-        <a href="#preguntas" aria-label="Preguntar" className="grid size-12 place-items-center rounded-full text-white transition hover:bg-white/15"><Icon name="comment" className="size-7" /></a>
-        <button type="button" onClick={() => share(caption)} aria-label="Compartir" className="grid size-12 place-items-center rounded-full text-white transition hover:bg-white/15"><Icon name="share" className="size-7" /></button>
+      <div className="flex items-center gap-1 rounded-full bg-surface p-1.5 lift">
+        <LikeButton />
+        <a href="#preguntas" aria-label="Preguntar" className="grid size-12 place-items-center rounded-full text-ink transition hover:bg-surface-2"><Icon name="comment" className="size-7" /></a>
+        <button type="button" onClick={() => share(caption)} aria-label="Compartir" className="grid size-12 place-items-center rounded-full text-ink transition hover:bg-surface-2"><Icon name="share" className="size-7" /></button>
         <button
           type="button"
           aria-pressed={saved}
@@ -41,13 +41,13 @@ function ReactionDock({ caption, tags }: { caption: string; tags: string }) {
             downloadReminders();
             toast("Fechas guardadas en tu calendario");
           }}
-          className={`ml-auto grid size-12 place-items-center rounded-full transition hover:bg-white/15 ${saved ? "text-gold" : "text-white"}`}
+          className={`ml-auto grid size-12 place-items-center rounded-full transition hover:bg-surface-2 ${saved ? "text-gold-deep" : "text-ink"}`}
         >
           <Icon name={saved ? "bookmarkFill" : "bookmark"} className="size-7" />
         </button>
       </div>
-      <p className="mt-4 px-2 text-lg leading-relaxed text-white/90">
-        {caption} <span className="font-semibold text-gold-hi">{tags}</span>
+      <p className="mt-4 px-2 text-lg leading-relaxed text-ink/85">
+        {caption} <span className="font-bold text-rose-ink">{tags}</span>
       </p>
     </div>
   );
@@ -56,7 +56,7 @@ function ReactionDock({ caption, tags }: { caption: string; tags: string }) {
 /* Object 1: a story screen with the class video. */
 function StoryScreen() {
   return (
-    <div className="relative mx-auto aspect-[9/14] w-full max-w-[340px] overflow-hidden rounded-[38px] border-[6px] border-[#1a0610] bg-[#1a0610] shadow-[0_40px_70px_-30px_rgb(0_0_0/0.8)]">
+    <div className="relative mx-auto aspect-[9/14] w-full max-w-[340px] overflow-hidden rounded-[38px] border-[7px] border-surface bg-surface lift">
       <div className="absolute inset-0"><VideoPlayer src="/media/baking-cookies-720p.webm" poster="/media/baking-cookies-poster.webp" label="Galletas horneándose" autoLoop className="size-full" /></div>
       <div className="absolute inset-x-3 top-3 flex gap-1.5">
         {[0, 1, 2].map((i) => (
@@ -66,7 +66,7 @@ function StoryScreen() {
         ))}
       </div>
       <div className="absolute inset-x-3 top-7 flex items-center gap-2.5">
-        <span className="story size-10"><span className="grid size-full place-items-center bg-wine"><LogoMark className="size-7" /></span></span>
+        <span className="story size-10"><span className="grid size-full place-items-center bg-surface"><LogoMark className="size-7" /></span></span>
         <p className="text-sm font-bold leading-tight text-white [text-shadow:0_1px_6px_rgb(0_0_0/.6)]">Clase del día<br /><span className="font-medium text-white/80">1 feb</span></p>
       </div>
       <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-5 pt-16">
@@ -84,7 +84,7 @@ function RecipeCard() {
   return (
     <div className="relative mx-auto w-full max-w-[340px] rotate-[-2.5deg] pt-4">
       <Tape className="-top-0 left-1/2 -translate-x-1/2 rotate-[-4deg]" />
-      <article className="doily px-7 pb-8 pt-7 text-ink drop">
+      <article className="doily px-7 pb-16 pt-7 text-ink drop">
         <div className="flex items-start justify-between">
           <p className="flex items-center gap-2 text-sm font-extrabold uppercase tracking-widest text-rose-ink"><Icon name="recipe" className="size-7" />Receta en PDF</p>
           <svg viewBox="0 0 48 48" className="size-12 text-rose" aria-hidden>
@@ -98,7 +98,7 @@ function RecipeCard() {
             <span key={w} className="flex items-center gap-3"><Icon name="heartFill" className="size-3.5 text-rose" /><span className="h-2.5 rounded-full bg-line" style={{ width: `${w}%` }} /></span>
           ))}
         </div>
-        <span className="absolute -bottom-3 -right-3 grid size-16 rotate-12 place-items-center rounded-full bg-goldfoil text-wine shadow-[0_4px_0_#d98400]"><Icon name="download" className="size-8" /></span>
+        <span className="absolute -bottom-3 right-0 grid size-16 rotate-12 sm:-right-3 place-items-center rounded-full bg-goldfoil text-wine shadow-[0_4px_0_#d98400]"><Icon name="download" className="size-8" /></span>
       </article>
     </div>
   );
@@ -150,15 +150,15 @@ export function Feed() {
     { el: <LoveLetter />, caption: "14 días, 14 clases, 14 recetas. Un corazón nuevo cada mañana de febrero.", tags: "#14Días" },
   ];
   return (
-    <section id="incluye" className="tex-satin relative bg-wine py-28 text-white sm:py-32">
-      <RibbonEdge color="var(--c-wine)" />
+    <section id="incluye" className="tex-linen relative bg-blush py-28 sm:py-32">
+      <RibbonEdge color="var(--c-blush)" />
       <div className="mx-auto max-w-7xl px-5">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div className="max-w-3xl">
-            <Reveal><Eyebrow className="!text-gold">Qué incluye</Eyebrow></Reveal>
-            <H2>Lo que guarda <span className="font-script font-normal text-goldfoil">cada corazón</span></H2>
+            <Reveal><Eyebrow>Qué incluye</Eyebrow></Reveal>
+            <H2>Lo que guarda <span className="font-script font-normal text-rose">cada corazón</span></H2>
           </div>
-          <Reveal delay={0.16} as="p" className="max-w-sm text-lg text-white/80">Dale ❤ a lo que más te guste, compártelo o guarda las fechas en tu calendario.</Reveal>
+          <Reveal delay={0.16} as="p" className="max-w-sm text-lg text-muted">Dale ❤ a lo que más te guste, compártelo o guarda las fechas en tu calendario.</Reveal>
         </div>
         <div className="mt-16 grid items-end gap-14 md:grid-cols-2 lg:grid-cols-3 lg:gap-10">
           {items.map((it, i) => (
@@ -205,7 +205,7 @@ export function Community() {
           <Reveal><Eyebrow className="justify-center">Comunidad</Eyebrow></Reveal>
           <H2>Horneamos <span className="font-script font-normal text-rose">juntos</span></H2>
         </div>
-        <div className="mt-16 grid items-start gap-12 lg:grid-cols-[minmax(0,380px)_1fr]">
+        <div className="mt-16 grid grid-cols-1 items-start gap-12 lg:grid-cols-[minmax(0,380px)_minmax(0,1fr)]">
           {/* Membership pass on a ribbon */}
           <Reveal variant="left" className="relative pt-24">
             <svg aria-hidden viewBox="0 0 120 110" className="absolute left-1/2 top-0 h-28 w-32 -translate-x-1/2">
@@ -222,7 +222,7 @@ export function Community() {
                 </div>
                 <div className="px-6 pb-7 text-center">
                   <span className="story mx-auto -mt-2 mt-5 size-28">
-                    <span className="grid size-full place-items-center bg-wine font-script text-6xl"><span className="text-goldfoil">P</span></span>
+                    <span className="grid size-full place-items-center bg-rose pt-2 font-script text-6xl text-white">P</span>
                   </span>
                   <h3 className="mt-3 font-display text-3xl font-bold">{profile.name}</h3>
                   <p className="font-semibold text-rose-ink">{profile.line}</p>
@@ -253,10 +253,13 @@ export function Community() {
 
           <div className="lg:pt-10">
             {/* Hashtag sticker */}
-            <Reveal className="sticker tex-satin bg-wine p-7 text-white lift sm:p-10" style={{ rotate: "1.2deg" }}>
-              <p className="flex items-center gap-3 text-sm font-extrabold uppercase tracking-[0.2em] text-gold"><Icon name="hash" className="size-6" />Tu hashtag</p>
-              <p className="mt-3 break-all font-display text-[clamp(2rem,4.6vw,3.6rem)] font-extrabold leading-tight text-goldfoil">{site.hashtag}</p>
-              <p className="mt-3 max-w-xl text-lg text-white/85">Cuando prepares tus recetas, toma una foto y compártela con el hashtag para encontrar a quienes hornean contigo.</p>
+            <Reveal className="sticker tex-satin bg-rose p-7 text-white lift sm:p-10" style={{ rotate: "1.2deg" }}>
+              <p className="flex items-center gap-3 text-sm font-extrabold uppercase tracking-[0.2em] text-white"><span className="grid size-8 place-items-center rounded-full bg-goldfoil text-wine"><Icon name="hash" className="size-5" /></span>Tu hashtag</p>
+              <p className="mt-3 font-display text-[clamp(2rem,4.6vw,3.6rem)] font-extrabold leading-tight text-white [text-shadow:0_3px_0_var(--c-rose-ink)]">
+                {/* Line breaks only between the words of the hashtag, never inside one. */}
+                {site.hashtag.split(/(?<=[a-z])(?=[A-Z0-9])/).map((w, i) => (i ? [<wbr key={i} />, w] : w))}
+              </p>
+              <p className="mt-3 max-w-xl text-lg text-white/95">Cuando prepares tus recetas, toma una foto y compártela con el hashtag para encontrar a quienes hornean contigo.</p>
               <div className="mt-7 flex flex-wrap gap-3 pr-16">
                 <button
                   type="button"
@@ -272,7 +275,7 @@ export function Community() {
                 >
                   <span className="chip"><Icon name="hash" /></span>Copiar hashtag
                 </button>
-                <ShareRow tone="glass" />
+                <ShareRow />
               </div>
             </Reveal>
 
@@ -316,31 +319,31 @@ export function Offer() {
           <Reveal><Eyebrow className="justify-center">Edición San Valentín 2027</Eyebrow></Reveal>
           <H2>Regálate <span className="font-script font-normal text-rose">14 días</span> de recetas</H2>
         </div>
-        <div className="mt-16 grid items-center gap-12 lg:grid-cols-[1.1fr_1fr]">
+        <div className="mt-16 grid grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
           <Reveal variant="left">
             <Tilt max={6}>
               <div className="drop">
-                <div className="relative bg-wine py-10 pl-24 pr-8 text-white [clip-path:polygon(0_50%,64px_0,100%_0,100%_100%,64px_100%)] sm:pl-28 sm:pr-10">
+                <div className="tex-satin relative bg-rose py-10 pl-[84px] pr-5 text-white [clip-path:polygon(0_50%,64px_0,100%_0,100%_100%,64px_100%)] sm:pl-28 sm:pr-10">
                   <span aria-hidden className="absolute left-9 top-1/2 size-8 -translate-y-1/2 rounded-full border-[5px] border-gold bg-bg" />
-                  <span aria-hidden className="absolute inset-3 left-[72px] rounded-[22px] border-2 border-dashed border-gold/70" />
+                  <span aria-hidden className="absolute inset-3 left-[72px] rounded-[22px] border-2 border-dashed border-white/60" />
                   <div className="relative [transform:translateZ(36px)]">
-                    <p className="text-sm font-extrabold uppercase tracking-[0.24em] text-gold">Precio de lanzamiento</p>
+                    <p className="inline-block rounded-full bg-goldfoil px-3 py-1 text-xs font-extrabold uppercase tracking-[0.22em] text-wine shadow-[0_2px_0_#d98400]">Precio de lanzamiento</p>
                     {price ? (
-                      <p className="mt-3 font-display text-[clamp(4rem,9vw,6.5rem)] font-extrabold leading-none text-goldfoil">
+                      <p className="mt-4 font-display text-[clamp(4rem,9vw,6.5rem)] font-extrabold leading-none text-white [text-shadow:0_4px_0_var(--c-rose-ink)]">
                         ${price.amount}
-                        {price.regular && <s className="ml-4 align-middle font-sans text-2xl font-semibold text-white/60">${price.regular}</s>}
+                        {price.regular && <s className="ml-4 align-middle font-sans text-2xl font-semibold text-white/70 [text-shadow:none]">${price.regular}</s>}
                       </p>
                     ) : (
-                      <p className="mt-3 font-display text-[clamp(3rem,6.4vw,4.6rem)] font-extrabold leading-none text-goldfoil">Muy pronto</p>
+                      <p className="mt-4 font-display text-[clamp(3rem,6.4vw,4.6rem)] font-extrabold leading-none text-white [text-shadow:0_4px_0_var(--c-rose-ink)]">Muy pronto</p>
                     )}
-                    <p className="mt-4 text-lg text-white/85">Pago único. Un corazón nuevo cada día del 1 al 14 de febrero.</p>
+                    <p className="mt-4 text-lg text-white/95">Pago único. Un corazón nuevo cada día del 1 al 14 de febrero.</p>
                     <div className="mt-8 flex flex-wrap gap-4">
                       {site.checkoutUrl ? (
                         <a href={site.checkoutUrl} className="btn3d gold lg"><span className="chip"><Icon name="heartFill" className="text-rose" /></span>Quiero mi calendario</a>
                       ) : (
                         <span className="btn3d gold lg" aria-disabled="true"><span className="chip"><Icon name="calendar" /></span>Próximamente</span>
                       )}
-                      <a href="#regala" className="btn3d glass lg"><span className="chip"><Icon name="gift" /></span>Regálalo</a>
+                      <a href="#regala" className="btn3d cream lg"><span className="chip"><Icon name="gift" /></span>Regálalo</a>
                     </div>
                   </div>
                 </div>
@@ -416,8 +419,8 @@ export function Faq() {
           <Reveal delay={0.16} as="p" className="mt-5 max-w-sm text-lg text-muted">Toca una pregunta y te respondemos al momento, como en un chat.</Reveal>
         </div>
         {/* Phone with a chat */}
-        <Reveal variant="flip" className="mx-auto w-full min-w-0 max-w-[460px] rounded-[48px] bg-[#1a0610] p-3 shadow-[0_40px_80px_-30px_rgb(var(--shadow-rgb)/0.7)]">
-          <div className="overflow-hidden rounded-[38px] bg-surface">
+        <Reveal variant="flip" className="mx-auto w-full min-w-0 max-w-[460px] rounded-[48px] bg-surface p-3 ring-1 ring-line lift">
+          <div className="overflow-hidden rounded-[38px] bg-surface ring-1 ring-line">
             <div className="flex items-center gap-3 border-b border-line px-5 pb-4 pt-6">
               <span className="story size-12"><span className="grid size-full place-items-center bg-surface"><LogoMark className="size-8" /></span></span>
               <div className="leading-tight">
@@ -439,14 +442,14 @@ export function Faq() {
                 </p>
               )}
             </div>
-            <div className="no-scrollbar flex gap-2.5 overflow-x-auto border-t border-line p-4">
+            <div className="flex flex-wrap gap-2.5 border-t border-line p-4">
               {faqs.map((f) => (
                 <button
                   key={f.q}
                   type="button"
                   disabled={asked.has(f.q)}
                   onClick={() => ask(f.q, f.a)}
-                  className="shrink-0 rounded-full border-2 border-rose/30 bg-surface px-4 py-2 text-base font-bold text-rose-ink transition hover:border-rose hover:bg-rose hover:text-white disabled:opacity-40 disabled:hover:bg-surface disabled:hover:text-rose-ink"
+                  className="rounded-full text-left leading-snug border-2 border-rose/30 bg-surface px-4 py-2 text-base font-bold text-rose-ink transition hover:border-rose hover:bg-rose hover:text-white disabled:opacity-40 disabled:hover:bg-surface disabled:hover:text-rose-ink"
                 >
                   {f.q}
                 </button>

@@ -9,6 +9,7 @@
   --c-bg: #fff7f9;
   --c-surface: #ffffff;
   --c-surface-2: #ffeef3;
+  --c-blush: #ffe1ea;
   --c-ink: #2e0a19;
   --c-muted: #7c4a5c;
   --c-rose: #e91e63;
@@ -30,6 +31,7 @@
   --c-bg: #12040b;
   --c-surface: #1f0b15;
   --c-surface-2: #2b1020;
+  --c-blush: #24091a;
   --c-ink: #fff0f5;
   --c-muted: #d9a7ba;
   --c-rose: #ff4f8b;
@@ -51,6 +53,7 @@
   --color-bg: var(--c-bg);
   --color-surface: var(--c-surface);
   --color-surface-2: var(--c-surface-2);
+  --color-blush: var(--c-blush);
   --color-ink: var(--c-ink);
   --color-muted: var(--c-muted);
   --color-rose: var(--c-rose);
@@ -229,7 +232,7 @@ body {
 .btn3d.icon-only { padding: 0; width: 54px; }
 .btn3d.sm { min-height: 44px; font-size: 0.95rem; --h: 4px; }
 .btn3d.sm.icon-only { width: 44px; }
-.btn3d.lg { min-height: 64px; font-size: 1.2rem; --h: 7px; }
+@media (min-width: 640px) { .btn3d.lg { min-height: 64px; font-size: 1.2rem; --h: 7px; } }
 
 .btn3d.gold { --face: #ffc93c; --edge: #d98400; --ink: #4a0720; --glow: 255 180 0; }
 .btn3d.gold .chip { background: rgb(255 255 255 / 0.45); }
@@ -316,6 +319,8 @@ dialog::backdrop { background: rgb(18 2 9 / 0.82); backdrop-filter: blur(8px); }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
   [data-reveal] { opacity: 1; transform: none; }
+  /* The story timer is a timer, not decoration: it keeps its length so slides do not skip. */
+  .story-timer { animation-duration: 8s !important; }
 }
 
 /* ───────── Landing (requirements L01–L11) ─────────
@@ -394,7 +399,7 @@ dialog::backdrop { background: rgb(18 2 9 / 0.82); backdrop-filter: blur(8px); }
 
 /* Envelope with a flap that opens and a letter that slides out. */
 .envelope { position: relative; perspective: 1200px; }
-.env-back { position: absolute; inset: 38% 0 0; border-radius: 0 0 28px 28px; background: var(--c-wine-2); }
+.env-back { position: absolute; inset: 38% 0 0; border-radius: 0 0 28px 28px; background: var(--c-rose-ink); }
 .env-letter {
   position: absolute; left: 7%; right: 7%; top: 40%; bottom: 5%; z-index: 1; border-radius: 20px; background: var(--c-cream);
   transform: translateY(0); transition: transform 1s var(--ease-soft) 0.35s; box-shadow: 0 -8px 24px rgb(0 0 0 / 0.18);
@@ -422,7 +427,7 @@ dialog::backdrop { background: rgb(18 2 9 / 0.82); backdrop-filter: blur(8px); }
   border-radius: 18px;
 }
 .stamp { padding: 6px; background: var(--c-rose); outline: 7px dotted var(--c-cream); outline-offset: -3px; border-radius: 4px; }
-.postmark { border: 3px solid color-mix(in srgb, var(--c-wine-2) 55%, transparent); border-radius: 50%; }
+.postmark { border: 3px solid color-mix(in srgb, var(--c-rose-ink) 55%, transparent); border-radius: 50%; }
 
 /* Membership pass: punched slot and a gold foil band. */
 .pass { position: relative; border-radius: 30px; background: var(--c-surface); }
@@ -432,7 +437,7 @@ dialog::backdrop { background: rgb(18 2 9 / 0.82); backdrop-filter: blur(8px); }
 .sticker { position: relative; border-radius: 32px; }
 .sticker::after {
   content: ""; position: absolute; right: 0; bottom: 0; width: 70px; height: 70px; border-radius: 32px 0 32px 0;
-  background: linear-gradient(135deg, var(--c-wine-2) 48%, #ffe9b3 50%, #ffd34d 78%, #ffc21a);
+  background: linear-gradient(135deg, var(--c-rose-ink) 48%, #ffe9b3 50%, #ffd34d 78%, #ffc21a);
   box-shadow: -6px -6px 14px rgb(0 0 0 / 0.25);
   clip-path: polygon(100% 0, 0 100%, 100% 100%);
 }

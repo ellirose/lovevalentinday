@@ -21,7 +21,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
       {children}
       <div aria-live="polite" className="pointer-events-none fixed bottom-6 left-1/2 z-[70]">
         {msg && (
-          <p className="flex -translate-x-1/2 items-center gap-3 rounded-full bg-wine px-5 py-3 font-semibold text-white shadow-2xl" style={{ animation: "toast-in .4s var(--ease-soft)" }}>
+          <p className="flex -translate-x-1/2 items-center gap-3 rounded-full bg-rose-ink px-5 py-3 font-semibold text-white shadow-2xl" style={{ animation: "toast-in .4s var(--ease-soft)" }}>
             <Icon name="heartFill" className="size-5 text-gold" />
             {msg}
           </p>
