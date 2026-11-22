@@ -3,6 +3,7 @@
 import { site } from "@/content/site";
 import { HeroSparkles } from "./HeroSparkles";
 import { Icon } from "./Icons";
+import { useShare } from "./Social";
 import { useSound } from "./SoundProvider";
 
 const sources = (crop: string, big: number, small: number, media?: string) =>
@@ -18,9 +19,7 @@ const sources = (crop: string, big: number, small: number, media?: string) =>
 
 export function Hero() {
   const { start } = useSound();
-  const secondary = site.buyerAreaUrl
-    ? { href: site.buyerAreaUrl, label: "Ya lo compré · Entrar" }
-    : { href: "#como-funciona", label: "¿Cómo funciona?" };
+  const share = useShare();
 
   return (
     <section id="inicio" className="hero" aria-labelledby="hero-title">
@@ -49,10 +48,10 @@ export function Hero() {
             href="#calendario"
             onClick={start}
             aria-label="Abrir mi calendario"
-            className="hero-cta btn-shine"
+            className="btn3d gold hero-cta"
             style={{ animation: "pop-in 1s .9s var(--ease-soft) backwards" }}
           >
-            <Icon name="heart" />
+            <span className="chip"><Icon name="heartFill" className="text-rose" /></span>
             <span>
               Abrir<span className="hero-more"> mi calendario</span>
             </span>
@@ -60,10 +59,16 @@ export function Hero() {
         </div>
       </div>
 
-      <a href={secondary.href} className="hero-cue">
-        <span aria-hidden><Icon name="down" className="size-4" /></span>
-        <span>{secondary.label}</span>
-      </a>
+      <div className="hero-dock">
+        <button type="button" onClick={() => share()} aria-label="Compartir" className="btn3d glass sm max-[379px]:!px-1.5">
+          <span className="chip"><Icon name="share" /></span>
+          <span className="max-[379px]:sr-only">Compartir</span>
+        </button>
+        <a href="#calendario" className="btn3d glass sm">
+          <span className="chip" style={{ animation: "cue 2.2s ease-in-out infinite" }}><Icon name="down" /></span>
+          Ver los 14 días
+        </a>
+      </div>
     </section>
   );
 }

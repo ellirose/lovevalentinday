@@ -1,14 +1,10 @@
 import { nav, site } from "@/content/site";
 import { FrostingEdge } from "./Edges";
 import { Logo } from "./Icons";
+import { ShareRow } from "./Social";
 
 const credits = [
-  {
-    what: "Video «Baking cookies»",
-    who: "Robert Cole",
-    license: "CC0",
-    href: "https://commons.wikimedia.org/wiki/File:Baking_cookies.ogv",
-  },
+  { what: "Video y fotos «Baking cookies»", who: "Robert Cole", license: "CC0", href: "https://commons.wikimedia.org/wiki/File:Baking_cookies.ogv" },
 ];
 
 export function Footer() {
@@ -17,19 +13,17 @@ export function Footer() {
       <FrostingEdge color="var(--c-wine)" />
       <div className="mx-auto max-w-7xl px-5">
         <div className="flex flex-col items-center text-center">
-          <div className="rounded-[36px] bg-cream px-8 py-6 text-ink lift">
-            <Logo size="lg" />
-          </div>
-          <p className="mt-8 font-script text-[clamp(2.2rem,5vw,3.4rem)] leading-tight text-gold">{site.subtitle}</p>
+          <Logo size="lg" onDark />
+          <p className="mt-6 font-script text-[clamp(2.2rem,5vw,3.4rem)] leading-tight text-goldfoil">{site.subtitle}</p>
+          <p className="mt-2 font-display text-2xl font-bold text-white">{site.hashtag}</p>
+          <ShareRow tone="glass" className="mt-7 justify-center" />
         </div>
 
         <nav aria-label="Pie de página" className="mt-12">
           <ul className="flex flex-wrap justify-center gap-x-2 gap-y-3">
             {nav.map((n) => (
               <li key={n.href}>
-                <a href={n.href} className="rounded-full px-5 py-2.5 text-lg font-semibold transition hover:bg-white/10 hover:text-white">
-                  {n.label}
-                </a>
+                <a href={n.href} className="rounded-full px-5 py-2.5 text-lg font-semibold transition hover:bg-white/10 hover:text-white">{n.label}</a>
               </li>
             ))}
           </ul>
@@ -44,10 +38,7 @@ export function Footer() {
             <ul className="mt-2 space-y-1">
               {credits.map((c) => (
                 <li key={c.href}>
-                  <a href={c.href} target="_blank" rel="noopener noreferrer" className="underline decoration-gold/60 underline-offset-4 hover:text-white">
-                    {c.what}
-                  </a>{" "}
-                  · {c.who} · {c.license}
+                  <a href={c.href} target="_blank" rel="noopener noreferrer" className="underline decoration-gold/70 underline-offset-4 hover:text-white">{c.what}</a> · {c.who} · {c.license}
                 </li>
               ))}
               <li>Ilustraciones de portada creadas para este proyecto</li>
