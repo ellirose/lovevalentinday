@@ -81,8 +81,12 @@ export function GiftCard() {
     lines.forEach((l, i) => ctx.fillText(l, W / 2, top + i * lh));
 
     // Ribbon with the year
+    // Sized from the text so the whole title sits on the ribbon.
     ctx.shadowBlur = 0;
-    const rw = 300, rh = 64, ry = H * 0.415;
+    ctx.font = `800 40px ${serif}`;
+    ctx.letterSpacing = "8px";
+    const title = "SAN VALENTÍN 2027";
+    const rw = ctx.measureText(title).width + 110, rh = 68, ry = H * 0.415;
     ctx.fillStyle = theme.accent;
     ctx.beginPath();
     ctx.moveTo(W / 2 - rw / 2, ry - rh / 2);
@@ -94,9 +98,7 @@ export function GiftCard() {
     ctx.closePath();
     ctx.fill();
     ctx.fillStyle = "#5c0a2b";
-    ctx.font = `800 40px ${serif}`;
-    ctx.letterSpacing = "8px";
-    ctx.fillText("SAN VALENTÍN 2027", W / 2, ry + 2);
+    ctx.fillText(title, W / 2 + 4, ry + 2);
     ctx.letterSpacing = "0px";
 
     // Signature pill near the bottom
@@ -186,7 +188,7 @@ export function GiftCard() {
             </div>
             <label className="mt-5 block">
               <span className="sr-only">Escribe tu propio mensaje</span>
-              <input className={line} value={msg} maxLength={60} onChange={(e) => setMsg(e.target.value)} placeholder="O escribe el tuyo…" />
+              <textarea className={`${line} resize-none`} rows={2} value={msg} maxLength={60} onChange={(e) => setMsg(e.target.value.replace(/\s*\n\s*/g, " "))} placeholder="O escribe el tuyo…" />
             </label>
           </div>
           <div className="relative sm:border-l-2 sm:border-dashed sm:border-rose/30 sm:pl-8">
@@ -221,7 +223,7 @@ export function GiftCard() {
                 aria-pressed={theme.id === t.id}
                 onClick={() => setTheme(t)}
                 aria-label={`Estilo ${t.label}`}
-                className={`grid size-12 place-items-center rounded-full transition ${theme.id === t.id ? "bg-wine" : "bg-surface lift"}`}
+                className={`grid size-12 place-items-center rounded-full transition ${theme.id === t.id ? "bg-rose ring-4 ring-rose/25" : "bg-surface lift"}`}
               >
                 <span className="size-8 rounded-full border-2 border-white shadow" style={{ background: t.accent }} />
               </button>
@@ -237,11 +239,11 @@ export function GiftCard() {
       </form>
 
       <div className="relative mx-auto w-full max-w-[380px]">
-        <div className="relative rounded-[44px] bg-[#1a0610] p-3 shadow-[0_40px_80px_-30px_rgb(var(--shadow-rgb)/0.6)]">
-          <span aria-hidden className="absolute left-1/2 top-5 z-10 h-6 w-24 -translate-x-1/2 rounded-full bg-black" />
-          <canvas ref={canvas} width={W} height={H} className="block aspect-[9/16] w-full rounded-[34px] bg-wine" role="img" aria-label={`Vista previa de la tarjeta: ${msg}, para ${to || "ti"}, de ${from || "mí"}`} />
+        <div className="relative rounded-[44px] bg-surface p-3 ring-1 ring-line lift">
+          <span aria-hidden className="absolute left-1/2 top-5 z-10 h-6 w-24 -translate-x-1/2 rounded-full bg-[#1a0610]/85" />
+          <canvas ref={canvas} width={W} height={H} className="block aspect-[9/16] w-full rounded-[34px] bg-rose" role="img" aria-label={`Vista previa de la tarjeta: ${msg}, para ${to || "ti"}, de ${from || "mí"}`} />
         </div>
-        <span aria-hidden className="absolute -right-4 -top-4 grid size-16 rotate-12 place-items-center rounded-full bg-goldfoil text-wine shadow-[0_4px_0_#d98400]">
+        <span aria-hidden className="absolute -right-1 -top-4 grid size-16 sm:-right-4 rotate-12 place-items-center rounded-full bg-goldfoil text-wine shadow-[0_4px_0_#d98400]">
           <Icon name="heartFill" className="size-8 text-rose" />
         </span>
       </div>

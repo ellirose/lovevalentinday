@@ -100,7 +100,7 @@ function StoryViewer({ day, state, onClose }: { day: number; state: State; onClo
       onClose={onClose}
       onClick={(e) => e.target === e.currentTarget && ref.current?.close()}
       aria-label={`Historia del día ${day}`}
-      className="m-auto h-[min(92dvh,860px)] w-[min(100vw-16px,calc(min(92dvh,860px)*0.56))] overflow-hidden rounded-[34px] bg-wine p-0 text-white shadow-2xl backdrop:bg-transparent"
+      className="m-auto h-[min(92dvh,860px)] w-[min(100vw-16px,calc(min(92dvh,860px)*0.56))] overflow-hidden rounded-[34px] bg-rose-ink p-0 text-white shadow-2xl backdrop:bg-transparent"
       style={{ animation: "pop-in .5s var(--ease-soft)" }}
     >
       <div className="tex-satin relative flex h-full flex-col">
@@ -110,7 +110,7 @@ function StoryViewer({ day, state, onClose }: { day: number; state: State; onClo
             <span key={i} className="h-1 flex-1 overflow-hidden rounded-full bg-white/30">
               <span
                 key={`${slide}-${i}`}
-                className="block h-full origin-left bg-goldfoil"
+                className="story-timer block h-full origin-left bg-goldfoil"
                 style={
                   i < slide
                     ? { transform: "scaleX(1)" }
@@ -129,12 +129,12 @@ function StoryViewer({ day, state, onClose }: { day: number; state: State; onClo
         </div>
         {/* header */}
         <div className="relative z-20 flex items-center gap-3 px-4 pb-3 pt-7">
-          <span className="story size-11 shrink-0"><span className="grid size-full place-items-center bg-wine"><LogoMark className="size-8" /></span></span>
+          <span className="story size-11 shrink-0"><span className="grid size-full place-items-center bg-surface"><LogoMark className="size-8" /></span></span>
           <div className="min-w-0 flex-1 leading-tight">
             <p className="truncate font-bold">Día {day} · {short(day)}</p>
             <p className="truncate text-sm text-white/75">{state === "preview" ? preview.note : label(day)}</p>
           </div>
-          <button type="button" onClick={() => ref.current?.close()} aria-label="Cerrar historia" className="btn3d sm icon-only glass">
+          <button type="button" onClick={() => ref.current?.close()} aria-label="Cerrar historia" className="btn3d sm icon-only cream">
             <Icon name="close" className="size-5" />
           </button>
         </div>
@@ -150,7 +150,7 @@ function StoryViewer({ day, state, onClose }: { day: number; state: State; onClo
             <div className="grid h-full place-content-center gap-5 text-center">
               <Icon name="heartFill" className="mx-auto size-24 text-rose-hi" />
               <p className="font-display text-3xl font-bold">Este corazón ya está abierto</p>
-              <p className="text-white/80">Entra a tu cuenta para ver la clase y descargar la receta.</p>
+              <p className="text-white/90">Entra a tu cuenta para ver la clase y descargar la receta.</p>
               <a href={site.buyerAreaUrl ?? "#precio"} onClick={() => ref.current?.close()} className="btn3d gold mx-auto">
                 <span className="chip"><Icon name="heartFill" className="text-rose" /></span>
                 {site.buyerAreaUrl ? "Entrar a mi calendario" : "Quiero mi calendario"}
@@ -190,9 +190,9 @@ function StoryViewer({ day, state, onClose }: { day: number; state: State; onClo
             </div>
           ) : (
             <div className="grid h-full content-center justify-items-center gap-6 text-center" style={{ animation: "pop-in .5s var(--ease-soft)" }}>
-              <p className="font-script text-6xl text-goldfoil">¿Te gustó?</p>
-              <p className="max-w-xs text-lg text-white/85">Comparte el calendario con quien quieres endulzar este San Valentín.</p>
-              <ShareRow tone="glass" className="justify-center" />
+              <p className="font-script text-6xl text-white">¿Te gustó?</p>
+              <p className="max-w-xs text-lg text-white/95">Comparte el calendario con quien quieres endulzar este San Valentín.</p>
+              <ShareRow className="justify-center" />
               <a href="#precio" onClick={() => ref.current?.close()} className="btn3d gold">
                 <span className="chip"><Icon name="gift" /></span>Quiero mi calendario
               </a>
@@ -210,17 +210,17 @@ function StoryViewer({ day, state, onClose }: { day: number; state: State; onClo
         <div className="relative z-20 flex items-center justify-between gap-2 px-4 pb-4 pt-3">
           <div className="flex gap-2">
             {["😍", "🍰", "❤️", "🔥"].map((g) => (
-              <button key={g} type="button" onClick={(e) => react(e, g)} aria-label={`Reaccionar ${g}`} className="grid size-12 place-items-center rounded-full bg-white/12 text-2xl transition hover:scale-110 active:scale-90">
+              <button key={g} type="button" onClick={(e) => react(e, g)} aria-label={`Reaccionar ${g}`} className="grid size-12 place-items-center rounded-full bg-white/20 text-2xl transition hover:scale-110 active:scale-90">
                 {g}
               </button>
             ))}
           </div>
           {slides > 1 && (
             <div className="flex gap-2">
-              <button type="button" onClick={prev} disabled={slide === 0} aria-label="Historia anterior" className="btn3d sm icon-only glass disabled:opacity-40">
+              <button type="button" onClick={prev} disabled={slide === 0} aria-label="Historia anterior" className="btn3d sm icon-only cream disabled:opacity-40">
                 <Icon name="left" className="size-5" />
               </button>
-              <button type="button" onClick={next} disabled={slide === slides - 1} aria-label="Historia siguiente" className="btn3d sm icon-only glass disabled:opacity-40">
+              <button type="button" onClick={next} disabled={slide === slides - 1} aria-label="Historia siguiente" className="btn3d sm icon-only cream disabled:opacity-40">
                 <Icon name="right" className="size-5" />
               </button>
             </div>
@@ -302,8 +302,11 @@ export function Stories() {
             </div>
           </div>
 
-          <div className="relative mt-5">
-            <div ref={strip} className="no-scrollbar flex snap-x snap-mandatory gap-3 overflow-x-auto px-1 pb-3 pt-2 sm:gap-5">
+          <div className="mt-5 flex items-center gap-2">
+            <button type="button" onClick={() => scroll(-1)} aria-label="Ver días anteriores" className="btn3d sm icon-only cream mb-8 hidden shrink-0 sm:inline-flex">
+              <Icon name="left" className="size-5" />
+            </button>
+            <div ref={strip} className="no-scrollbar flex min-w-0 flex-1 snap-x snap-mandatory gap-3 overflow-x-auto px-1 pb-3 pt-2 sm:gap-5">
               {Array.from({ length: N }, (_, i) => i + 1).map((n) => {
                 const st = state(n);
                 return (
@@ -326,10 +329,7 @@ export function Stories() {
                 );
               })}
             </div>
-            <button type="button" onClick={() => scroll(-1)} aria-label="Ver días anteriores" className="btn3d sm icon-only cream absolute -left-3 top-12 hidden sm:inline-flex">
-              <Icon name="left" className="size-5" />
-            </button>
-            <button type="button" onClick={() => scroll(1)} aria-label="Ver días siguientes" className="btn3d sm icon-only cream absolute -right-3 top-12 hidden sm:inline-flex">
+            <button type="button" onClick={() => scroll(1)} aria-label="Ver días siguientes" className="btn3d sm icon-only cream mb-8 hidden shrink-0 sm:inline-flex">
               <Icon name="right" className="size-5" />
             </button>
           </div>
