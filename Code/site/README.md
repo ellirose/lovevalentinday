@@ -1,6 +1,6 @@
 # San Valentín 2027 site
 
-Public site for the calendar: the landing page, the 14-heart calendar preview, how it works, what's included, the offer, questions and the footer. Next.js 16 with Tailwind CSS 4, exported as static files.
+Public site for the calendar, built around sharing: the landing page, the 14 days as stories, what's included as a feed, a love-postcard maker, the community, the offer, questions as a chat and the footer. Next.js 16 with Tailwind CSS 4, exported as static files.
 
 ## Run
 
@@ -27,9 +27,11 @@ This Next.js version differs from older releases; read `node_modules/next/dist/d
 |---|---|
 | `src/content/site.ts` | All copy and settings: launch date, price, links, questions |
 | `src/components/Hero.tsx` | Full-screen landing; layout rules are the `.hero-*` classes in `globals.css` |
-| `src/components/Calendar.tsx` | 3D heart ring, day dates and the day window |
-| `src/components/Sections.tsx` | How it works, what's included, about, offer, questions |
-| `src/components/HeroSparkles.tsx`, `SugarHeart.tsx`, `CursorHearts.tsx` | Canvas effects |
+| `src/components/Stories.tsx` | Day stories, unlock dates and the story viewer |
+| `src/components/Sections.tsx` | Feed, gift, community, offer and chat sections |
+| `src/components/GiftCard.tsx` | Love postcard drawn on canvas, download and share |
+| `src/components/Social.tsx` | Sharing, toasts, reminders (.ics), likes |
+| `src/components/HeroSparkles.tsx`, `SprinkleHeart.tsx`, `CursorHearts.tsx` | Canvas effects |
 | `src/components/SoundProvider.tsx` | Music and chime |
 | `src/app/globals.css` | Colour tokens (light and dark), textures, card shapes, motion |
 
@@ -37,8 +39,9 @@ This Next.js version differs from older releases; read `node_modules/next/dist/d
 
 - **Theme.** Light is the default because Pedro approved the current colours. The dark theme uses the same hues and is a visitor choice saved in the browser; it does not follow the system setting.
 - **Landing.** The text and button are placed in image coordinates on each of the three background crops, inside the glowing heart. On small screens the button reads "Abrir" and the year joins the kicker so nothing overlaps.
-- **Calendar.** Hearts unlock by date in Puerto Rico time. Before launch, Day 1 opens as a preview with sample content. On the public site this is display only; real access control belongs to the platform chosen in plan phase 2.
-- **Ring clicks.** Pointer clicks are resolved by the ring from each heart's on-screen box, because Chrome's hit-testing inside 3D transforms is unreliable. Keyboard activation uses each heart's button.
+- **Social.** Days are heart-shaped stories; content is shown as feed objects with like, share and save; visitors can make a love postcard and share it; the hashtag and Pedro's pass make up the community. Likes count only the visitor's own tap; no numbers are invented.
+- **Cards.** Each card is an object for sending love: story screen, scalloped recipe card, envelope, postcard, membership pass, sticker, polaroids, notebook and gift tag.
+- **Calendar.** Stories unlock by date in Puerto Rico time. Before launch, Day 1 opens as a preview with sample content. On the public site this is display only; real access control belongs to the platform chosen in plan phase 2.
 - **Not included.** No language switch (the content is Spanish only), no testimonials and no countdown offer until Pedro provides real ones.
 
 ## Before launch
@@ -52,13 +55,14 @@ Each item is marked `TODO` in `src/content/site.ts`:
 - Answers to the questions, confirmed by Pedro (Q10, Q11)
 - Pedro's own "about" text and photo
 - Real day titles, videos and recipes in place of the preview sample
+- Community hashtag and YouTube link
 
 ## Media
 
 | File | Source | Licence |
 |---|---|---|
 | `public/img/cover-*` | Generated for this project from the approved cover (`docs/design/source/generation.json`) | Project asset |
-| `public/media/baking-cookies-720p.webm` and poster | [Baking cookies.ogv](https://commons.wikimedia.org/wiki/File:Baking_cookies.ogv), Robert Cole, via Wikimedia Commons (720p transcode) | CC0 |
+| `public/media/baking-cookies-720p.webm`, poster and `frame-*.webp` | [Baking cookies.ogv](https://commons.wikimedia.org/wiki/File:Baking_cookies.ogv), Robert Cole, via Wikimedia Commons (720p transcode) | CC0 |
 | Textures | Drawn in SVG in `globals.css` | Original |
 
 The video is a stand-in until Pedro's own class videos are available.
