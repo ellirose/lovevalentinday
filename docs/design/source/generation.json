@@ -1,0 +1,65 @@
+{
+  "date": "2026-11-22",
+  "tool": "Built-in image_gen.imagegen",
+  "promptSource": "docs/design/IMAGE_PROMPTS.md: E1a, E1b, E2, E3",
+  "approvedReference": "docs/design/San Valentín 2027_ Dulce Romance-1.png",
+  "optionalAssets": "S1 and S2 not generated; S1 requires Pedro's preference.",
+  "steps": [
+    {
+      "name": "clean",
+      "input": "docs/design/San Valentín 2027_ Dulce Romance-1.png",
+      "prompt": "Use case: precise-object-edit. Asset: cover-clean.png, text-free approved Valentine's cover, same original 1672x941 landscape aspect ratio. Edit the attached image. Remove all lettering and text: the logo in the top-left corner (a heart with a chef's hat and the words beneath it), the large title, the gold ribbon banner with the year, and the three lines of italic text. Also remove the small sparkle marks beside the title and the curly heart flourish below the text. Fill every removed area with the same softly glowing magenta bokeh background and golden sparkles, so it looks as if nothing was ever there. Keep the large glowing golden heart outline, now empty inside. Keep everything else exactly as it is: the teddy bear, its face and fur, the red scarf, the red heart with the gold bow, the roses, small white flowers, the gift box, the lantern, the floating hearts, the candle, the ribbons and petals. Same positions, sizes, colors, lighting and framing. Do not add anything. Inside the golden outline must be calm, evenly lit mid-dark magenta. No text, letters, numbers, words, logos, watermarks, signatures, labels or writing-like symbols anywhere.",
+      "generatedOutput": "C:\\Users\\Administrator\\.codex\\generated_images\\01a2052a-e481-7363-88db-7b13aa3321d5\\exec-aa4cc16a-b2a0-4f3d-b5e9-56ecf372cc07.png"
+    },
+    {
+      "name": "landscape",
+      "input": "D:\\Github-multi\\ellirose\\Pedro_USA\\docs\\design\\source\\cover-landscape-input.png",
+      "prompt": "Use case: precise-object-edit / outpainting. Produce cover-landscape.png at 2560x1440, landscape 16:9. The attached image contains a 1920x1080 central original picture on a 2560x1440 transparent canvas, with 320px side margins and 180px top/bottom margins. Extend the image outward on all four sides to fill ONLY this empty border. Continue the scene naturally: more softly blurred magenta and rose bokeh lights, a few more out-of-focus pink and red roses with small white flowers at the far left and far right edges, the pink satin ribbon continuing past the bottom right corner, scattered rose petals on the soft pink surface along the bottom, and warm golden glow toward the top right. The added areas must be quieter and softer than the center. Do not change anything inside the original picture. Do not enlarge or crop the original scene. Do not add a new main subject, bear, heart or frame. Fill every formerly transparent pixel, output opaque. Original bear stays between 20-56% across. Bear, heart gift and golden outline fully inside 14-86% across and 13-87% down. Empty calm mid-dark magenta text zone 52-82% across, 21-62% down; calm button zone 58-74% across, 65-74% down, free of petals, sparkles and ribbon.\nWarm romantic Valentine's illustration in a glossy, photoreal 3D style. Soft cinematic lighting with a warm golden glow. Raspberry, magenta and rose-pink palette with cream and gold accents. Shallow depth of field with soft bokeh lights. Rich but uncluttered, elegant and gentle, high detail, clean edges.\nNo text, letters, numbers, words, logos, watermarks, signatures, labels or symbols that look like writing. No people or hands. No additional teddy bears. No cartoon outlines, no flat vector style, no harsh shadows. No neon or blue tones. No objects crossing the empty areas described above.",
+      "generatedOutput": "C:\\Users\\Administrator\\.codex\\generated_images\\01a2052a-e481-7363-88db-7b13aa3321d5\\exec-ba42cc71-fa61-474b-8678-a178a7bb7066.png"
+    },
+    {
+      "name": "square",
+      "input": "D:\\Github-multi\\ellirose\\Pedro_USA\\docs\\design\\source\\cover-clean.png",
+      "prompt": "Use case: stylized-concept, reference-based recomposition. Produce cover-square.png, square 1:1, 2048x2048. Using the attached image as the exact reference for the teddy bear, the red heart with the gold bow, the props, the colors and the lighting, create a new square composition. Place the same teddy bear sitting at the bottom center, with the top of its head at 52% down and its feet at 88% down, holding the red heart with the gold satin bow. Preserve its honey-tan fluffy fur, tilted friendly face, dark small eyes, rosy cheeks, crimson knitted scarf and pink heart foot pads. Above the bear, float the same glowing golden heart outline made of light and sparkles, centered, spanning 18-82% across and 11-51% down, with its point just above the bear's head. Leave the inside of the heart outline empty, calm, softly lit mid-dark magenta. Place the roses, small white flowers, gift box, lantern and a few glossy floating hearts at the left and right sides and lower corners, away from the center. The outer tenth of the image on every side holds only soft bokeh, petals and blurred flowers. Bear and heart outline fully inside 10-90% across, 12-88% down. Empty text zone 18-82% across, 15-40% down. Empty button zone 32-68% across, 42-49% down, inside the outline's lower part. Face fully visible, not touching the outline.\nWarm romantic Valentine's illustration in a glossy, photoreal 3D style. Soft cinematic lighting with a warm golden glow. Raspberry, magenta and rose-pink palette with cream and gold accents. Shallow depth of field with soft bokeh lights. Rich but uncluttered, elegant and gentle, high detail, clean edges.\nNo text, letters, numbers, words, logos, watermarks, signatures, labels or symbols that look like writing. No people or hands. No additional teddy bears. No cartoon outlines, no flat vector style, no harsh shadows. No neon or blue tones. No objects crossing the empty areas described above.",
+      "generatedOutput": "C:\\Users\\Administrator\\.codex\\generated_images\\01a2052a-e481-7363-88db-7b13aa3321d5\\exec-7b5492c4-131c-4c1c-b141-cb141a82aaf3.png"
+    },
+    {
+      "name": "portrait",
+      "input": "D:\\Github-multi\\ellirose\\Pedro_USA\\docs\\design\\source\\cover-clean.png",
+      "prompt": "Use case: stylized-concept, reference-based recomposition. Produce cover-portrait.png at 1440x2560, tall vertical 9:16 phone-screen composition. Using the attached image as the exact reference for the teddy bear, the red heart with the gold bow, the props, the colors and the lighting, create a new tall vertical composition for a phone screen. Place the same teddy bear sitting in the lower part, centered, about two thirds of the image width, holding the red heart with the gold satin bow, with the top of its head at 52% down and its feet at 85% down. Preserve its honey-tan fluffy fur, tilted friendly face, dark small eyes, rosy cheeks, crimson knitted scarf and pink heart foot pads. Above it, the same glowing golden heart outline made of light and sparkles floats centered in the upper half, spanning about 12-88% across, 15-51% down, with its point just above the bear's head. Leave the inside of the outline empty, calm and softly lit mid-dark magenta. Put a few blurred roses, small white flowers and a glossy floating heart in the top corners and along the side edges. At the bottom, the soft pink surface with rose petals, the gift box partly visible at the bottom left and the pink satin ribbon at the bottom right. The top and bottom edges hold only soft bokeh and petals. Bear and outline fully inside 10-90% across, 15-85% down. Empty calm text zone 14-86% across, 17-41% down. Empty calm button zone 25-75% across, 43-50% down. Face fully visible. Top 0-15% down must contain nothing important, reserved for phone status bar and sound icon.\nWarm romantic Valentine's illustration in a glossy, photoreal 3D style. Soft cinematic lighting with a warm golden glow. Raspberry, magenta and rose-pink palette with cream and gold accents. Shallow depth of field with soft bokeh lights. Rich but uncluttered, elegant and gentle, high detail, clean edges.\nNo text, letters, numbers, words, logos, watermarks, signatures, labels or symbols that look like writing. No people or hands. No additional teddy bears. No cartoon outlines, no flat vector style, no harsh shadows. No neon or blue tones. No objects crossing the empty areas described above.",
+      "generatedOutput": "C:\\Users\\Administrator\\.codex\\generated_images\\01a2052a-e481-7363-88db-7b13aa3321d5\\exec-1eddf93c-ff4a-4fe2-8f10-29e87fa7f989.png"
+    },
+    {
+      "name": "square-final",
+      "input": "C:\\Users\\Administrator\\.codex\\generated_images\\01a2052a-e481-7363-88db-7b13aa3321d5\\exec-7b5492c4-131c-4c1c-b141-cb141a82aaf3.png",
+      "prompt": "Precise composition correction of this square 1:1 Valentine's illustration. Keep exactly the same teddy identity, fur, face, crimson scarf, red heart gift, gold bow, roses, props, palette, lighting and no-text style. Move and resize ONLY the golden heart outline so its outer bounding box is x18% to82%, y12% to50%; its point at x50%,y50%. The current heart's top is too near the top edge: its entire gold outline must be below y12%, with soft bokeh only above it. Resize the bear WITH its gift and scarf as one coherent group so its entire bounding box including ears and feet is x29% to71%, y53% to88%. Keep a clear 3%-height gap between the golden heart point and the top of the bear's ears. Extend the floor and petals below the feet, so bottom 12% is soft decorative floor only. Roses, gift box, lantern remain at sides outside the central zones. Keep center of heart totally empty, smooth mid-dark raspberry magenta for future HTML text. In particular the rectangle x32-68%, y42-47% must be free of gold lines or sparkles for a button. No text, lettering, numbers, logo or watermark. Output 2048x2048 square.",
+      "generatedOutput": "C:\\Users\\Administrator\\.codex\\generated_images\\01a2052a-e481-7363-88db-7b13aa3321d5\\exec-7f3ea7ba-89d6-4262-96b7-3ec7eb510738.png"
+    },
+    {
+      "name": "portrait-final",
+      "input": "C:\\Users\\Administrator\\.codex\\generated_images\\01a2052a-e481-7363-88db-7b13aa3321d5\\exec-1eddf93c-ff4a-4fe2-8f10-29e87fa7f989.png",
+      "prompt": "Precise composition correction of this 9:16 vertical Valentine's illustration. Keep exactly the same teddy identity, fur, face, crimson scarf, red heart gift, gold bow, roses, props, palette, lighting and no-text style. Resize and reposition the entire teddy, gift and scarf together as one coherent group: bear's outer bounding box INCLUDING ears AND feet must be x17% to83%, y53% to85%. The current bear is too tall and low. Keep feet fully above y85%, extend soft pink surface with petals below to fill bottom 15%. Resize and reposition ONLY the golden heart outline to bounding box x12% to88%, y16% to51%, with heart point x50%,y51%. Keep 2% vertical clear gap between point and ears. All gold lines must be below y16%; top 15% contains only soft blurred background and edge flowers, no important object. Keep center of heart totally empty, smooth mid-dark raspberry magenta for future HTML text. Particularly rectangle x25-75%, y43-48% must be free of gold lines or sparkles for a button. Side roses, lantern, cream gift box, candle and ribbons stay toward edges. No text, lettering, numbers, logo, watermark or additional bears. Output 1440x2560 portrait 9:16.",
+      "generatedOutput": "C:\\Users\\Administrator\\.codex\\generated_images\\01a2052a-e481-7363-88db-7b13aa3321d5\\exec-6065f50f-2f31-41c6-9c0c-ae27ddc82b6d.png"
+    }
+  ],
+  "finalMasters": {
+    "cover-clean.png": [
+      1672,
+      941
+    ],
+    "cover-landscape.png": [
+      2560,
+      1440
+    ],
+    "cover-square.png": [
+      2048,
+      2048
+    ],
+    "cover-portrait.png": [
+      1440,
+      2560
+    ]
+  },
+  "processing": "The built-in generator returned 1672x941 landscape, 1254x1254 square and 941x1672 portrait images. Masters resized with Pillow LANCZOS to the requested dimensions; these are upscaled exports, not native-resolution generations. Web exports are metadata-stripped and capped at 350000 bytes each.",
+  "validation": "Visually reviewed for absence of lettering, reference consistency and composition. Web files decoded and dimensions and metadata checked by export_images.py. Final live HTML overlay checks at the eight viewport sizes remain part of landing implementation before sending to Pedro."
+}
