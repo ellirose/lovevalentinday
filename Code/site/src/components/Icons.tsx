@@ -200,15 +200,19 @@ export function LogoMark({ className = "size-11" }: { className?: string }) {
   );
 }
 
-export function Logo({ size = "md", compact = false, onDark = false }: { size?: "md" | "lg"; compact?: boolean; onDark?: boolean }) {
+/**
+ * Brand lock-up. The script capitals of "San Valentín" rise well above their line box and swash to the
+ * left, so the script line gets top and left room in em units: nothing touches the label or the heart.
+ */
+export function Logo({ size = "md", compact = false }: { size?: "md" | "lg"; compact?: boolean }) {
   const lg = size === "lg";
   return (
-    <span className="inline-flex items-center gap-3">
-      <LogoMark className={lg ? "size-20 drop" : "size-11"} />
-      <span className={`flex-col leading-none ${compact ? "hidden" : "flex"}`} style={{ animation: compact ? undefined : "pop-in .5s var(--ease-soft)" }}>
-        <span className={`font-sans font-bold uppercase tracking-[0.22em] ${onDark ? "text-white/80" : "text-muted"} ${lg ? "text-sm" : "text-[0.6rem]"}`}>Calendario de</span>
-        <span className={`mt-1 whitespace-nowrap font-script leading-[0.9] ${onDark ? "text-goldfoil" : "text-rose"} ${lg ? "text-5xl sm:text-6xl" : "text-[1.9rem]"}`}>San Valentín</span>
-        <span className={`self-end rounded-full bg-goldfoil px-2 font-display font-extrabold tracking-[0.18em] text-wine ${lg ? "mt-1 text-lg" : "-mt-0.5 text-[0.62rem]"}`}>2027</span>
+    <span className={`inline-flex items-center ${lg ? "gap-3 sm:gap-4" : "gap-2.5"}`}>
+      <LogoMark className={lg ? "size-16 shrink-0 drop sm:size-20" : "size-11 shrink-0"} />
+      <span className={`flex-col items-start leading-none ${compact ? "hidden" : "flex"}`} style={{ animation: compact ? undefined : "pop-in .5s var(--ease-soft)" }}>
+        <span className={`font-sans font-bold uppercase tracking-[0.22em] text-muted ${lg ? "text-sm" : "text-[0.6rem]"}`}>Calendario de</span>
+        <span className={`whitespace-nowrap pl-[0.14em] pt-[0.3em] font-script leading-[0.95] text-rose ${lg ? "text-[2.6rem] sm:text-6xl" : "text-[1.75rem]"}`}>San Valentín</span>
+        <span className={`self-end rounded-full bg-goldfoil px-2 font-display font-extrabold tracking-[0.18em] text-wine ${lg ? "mt-1.5 text-lg" : "mt-0.5 text-[0.6rem]"}`}>2027</span>
       </span>
     </span>
   );
