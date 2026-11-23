@@ -60,12 +60,12 @@ export function Hero() {
       </div>
 
       <div className="hero-dock">
-        <button type="button" onClick={() => share()} aria-label="Compartir" className="btn3d glass sm max-[379px]:!px-1.5">
+        <button type="button" onClick={() => share()} aria-label="Compartir" className="btn3d pearl sm max-[379px]:!px-1.5">
           <span className="chip"><Icon name="share" /></span>
           <span className="max-[379px]:sr-only">Compartir</span>
         </button>
-        <a href="#calendario" className="btn3d glass sm">
-          <span className="chip" style={{ animation: "cue 2.2s ease-in-out infinite" }}><Icon name="down" /></span>
+        <a href="#calendario" className="btn3d pearl sm">
+          <span className="chip"><Icon name="down" /></span>
           Ver los 14 días
         </a>
       </div>
