@@ -9,10 +9,14 @@ import { useEffect, useRef } from "react";
 // Off for reduced motion; the glow and trail are for mouse pointers only; paused while the tab is hidden.
 
 type Bit = { x: number; y: number; vx: number; vy: number; l: number; s: number; c: string; r: number; kind: 0 | 1; tw: number };
-type Floater = { x: number; y: number; vx: number; vy: number; by: number; s: number; a: number; t: number; c: string };
+// vis fades a floating heart out while it is over content, so it never sits on text, buttons or pictures.
+type Floater = { x: number; y: number; vx: number; vy: number; by: number; s: number; a: number; t: number; c: string; vis: number; clear: boolean };
 
 const BRIGHT = ["#ffd54a", "#ffe98a", "#ff4f8b", "#ff7aa8", "#ffffff", "#ffc21a"];
 const SOFT = ["#ff5c8d", "#ff8fb0", "#ffc21a"];
+// Anything a floating heart must not cover. The landing background picture is the exception.
+const CONTENT = "p, h1, h2, h3, h4, h5, h6, li, dt, dd, a, button, label, input, textarea, select, summary, blockquote, figcaption, span, b, i, em, small, img, svg, picture, video, canvas, [role=img], .btn3d, .book-scene, [aria-roledescription=carrusel]";
+const SKIP = ".hero-bg, .hero-canvas, .hero-shade";
 const PRESSABLE = 'a[href], button:not(:disabled), [role="button"], [role="switch"], summary, label[for], select';
 
 export function CursorHearts() {
@@ -40,9 +44,35 @@ export function CursorHearts() {
     };
     const newFloater = (y: number): Floater => ({
       x: Math.random() * W, y, vx: 0, vy: 0, by: -(0.18 + Math.random() * 0.45), s: 9 + Math.random() * 16, a: 0.14 + Math.random() * 0.2, t: Math.random() * 6,
-      c: SOFT[(Math.random() * SOFT.length) | 0],
+      c: SOFT[(Math.random() * SOFT.length) | 0], vis: 0, clear: false,
     });
 
+    // Boxes of everything a floating heart must not cover, measured from the layout (not by hit-testing,
+    // which ignores click-through elements). Page content is kept in page coordinates so scrolling needs no
+    // re-measure; the fixed header and open dialogs stay in screen coordinates.
+    type Box = { l: number; t: number; r: number; b: number; fixed: boolean };
+    let boxes: Box[] = [];
+    let measuredAt = -1e9;
+    const measure = () => {
+      boxes = [];
+      const sy = scrollY;
+      for (const el of document.querySelectorAll(CONTENT)) {
+        if (el === cv || el.closest(SKIP)) continue;
+        const r = el.getBoundingClientRect();
+        if (r.width < 1 || r.height < 1 || r.bottom < -200 || r.top > H + 200 || r.right < 0 || r.left > W) continue;
+        const fixed = !!el.closest("header, dialog");
+        boxes.push({ l: r.left, r: r.right, t: fixed ? r.top : r.top + sy, b: fixed ? r.bottom : r.bottom + sy, fixed });
+      }
+    };
+    const isClear = (x: number, y: number, s: number) => {
+      const m = 12; // margin, so a heart fades before it reaches the content
+      const l = x - s / 2 - m, r = x + s / 2 + m, t = y - m, b = y + s + m, sy = scrollY;
+      for (const o of boxes) {
+        const ot = o.fixed ? o.t : o.t - sy, ob = o.fixed ? o.b : o.b - sy;
+        if (l < o.r && r > o.l && t < ob && b > ot) return false;
+      }
+      return true;
+    };
     const heart = (s: number) => {
       ctx.beginPath();
       ctx.moveTo(0, s * 0.3);
@@ -79,8 +109,16 @@ export function CursorHearts() {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, W, H);
 
-      // Floating hearts: drift up, sway, swerve away from the pointer.
-      for (const f of floaters) {
+      // Floating hearts: drift up, sway, swerve away from the pointer, and keep off the content.
+      if (performance.now() - measuredAt > 400) {
+        measure();
+        measuredAt = performance.now();
+      }
+      for (let k = 0; k < floaters.length; k++) {
+        const f = floaters[k];
+        f.clear = isClear(f.x, f.y, f.s);
+        // Fade in slowly over open background, fade out at once near content.
+        f.vis = f.clear ? Math.min(1, f.vis + 0.04) : f.vis * 0.4;
         const dx = f.x - p.x, dy = f.y - p.y, d = Math.hypot(dx, dy) || 1;
         if (d < 170) {
           f.vx += (dx / d) * 0.7;
@@ -93,8 +131,9 @@ export function CursorHearts() {
         if (f.y < -40) Object.assign(f, newFloater(H + 30));
         if (f.x < -40) f.x = W + 30;
         if (f.x > W + 40) f.x = -30;
+        if (f.vis < 0.02) continue;
         ctx.save();
-        ctx.globalAlpha = f.a;
+        ctx.globalAlpha = f.a * f.vis;
         ctx.fillStyle = f.c;
         ctx.translate(f.x, f.y);
         heart(f.s);

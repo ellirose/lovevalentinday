@@ -78,7 +78,7 @@ export function Intro() {
             </div>
             <div aria-hidden className="orbit">
               {orbiters.map((o, i) => (
-                <div key={i} className="orbit-item" style={{ "--a": o.a, "--y": o.y } as React.CSSProperties}>
+                <div key={i} className="orbit-item" style={{ "--a": o.a, "--y": o.y, "--d": `${(-parseFloat(o.a) / 360) * 16}s` } as React.CSSProperties}>
                   <div className="orbit-face">{o.el}</div>
                 </div>
               ))}

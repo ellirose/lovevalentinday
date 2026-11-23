@@ -463,7 +463,7 @@ dialog::backdrop { background: rgb(18 2 9 / 0.82); backdrop-filter: blur(8px); }
 .book-scene { position: relative; display: grid; place-items: center; perspective: 1400px; }
 .book {
   --t: 34px; /* thickness */
-  position: relative; width: min(300px, 64vw); aspect-ratio: 3 / 4; transform-style: preserve-3d;
+  position: relative; width: min(300px, 52vw); aspect-ratio: 3 / 4; transform-style: preserve-3d;
   transform: rotateX(var(--rx, 6deg)) rotateY(calc(var(--ry, 0deg) - 26deg)); transition: transform 0.6s var(--ease-soft);
 }
 .book > * { position: absolute; }
@@ -478,10 +478,15 @@ dialog::backdrop { background: rgb(18 2 9 / 0.82); backdrop-filter: blur(8px); }
 .book-top { left: 2px; right: 6px; top: calc(var(--t) / -2 + 2px); height: calc(var(--t) - 4px); transform: rotateX(90deg); background: repeating-linear-gradient(0deg, #fffaf2 0 2px, #f1dfe5 2px 3px); }
 .book-ribbon { left: 62%; bottom: -34px; width: 22px; height: 64px; transform: translateZ(calc(var(--t) / 2 - 1px)); background: var(--c-gold); clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 80%, 0 100%); }
 .orbit { position: absolute; inset: 0; transform-style: preserve-3d; animation: orbit 16s linear infinite; pointer-events: none; }
-.orbit-item { position: absolute; left: 50%; top: var(--y); transform-style: preserve-3d; transform: rotateY(var(--a)) translateZ(min(230px, 40vw)); }
+.orbit-item { position: absolute; left: 50%; top: var(--y); transform-style: preserve-3d; transform: rotateY(var(--a)) translateZ(min(280px, 44vw)); }
 .orbit-face { transform-style: preserve-3d; transform: rotateY(calc(var(--a) * -1)); }
 .orbit-face > * { display: block; translate: -50% -50%; animation: orbit 16s linear infinite reverse; }
 @keyframes orbit { to { transform: rotateY(360deg); } }
+/* Items are drawn above the book, so each one shows only at the sides of its orbit and fades while it
+   passes in front of or behind the book: it never covers the cover lettering.
+   The delay (set per item) lines the fade up with the item's place on the orbit. */
+.orbit-item { animation: orbit-fade 16s linear infinite; animation-delay: var(--d, 0s); }
+@keyframes orbit-fade { 0%, 16%, 34%, 66%, 84%, 100% { opacity: 0; } 20%, 30%, 70%, 80% { opacity: 1; } }
 
 /* ───────── Route timeline: satin ribbon with ticket cards ───────── */
 .route-line {
