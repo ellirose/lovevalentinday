@@ -125,6 +125,8 @@ async function build() {
       }
     }
     // A modern format is only offered when it is actually smaller (flat graphics can be larger in AVIF).
+    // A re-made master can change size: drop the previous outputs that this run did not write again.
+    old?.files.filter((f) => !files.includes(f)).forEach((f) => rmSync(join(OUT, f), { force: true }));
     const formats = ["avif", "webp"].filter((f) => bytes[f] < bytes[fallbackExt]);
     next.images[name] = { key, width, height, alpha, alt: opts.alt ?? "", widths, ext: fallbackExt, formats, files };
     log(`image ${name}: ${widths.join(", ")} px${alpha ? ", transparent" : ""}`);
