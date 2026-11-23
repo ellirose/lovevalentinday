@@ -28,7 +28,8 @@ export function HeartRing({
   const ring = useRef<HTMLDivElement>(null);
   const [front, setFront] = useState(0);
   const [radius, setRadius] = useState(380);
-  const m = useRef({ angle: 0, vel: 0, target: null as number | null, drag: false, moved: 0, lastX: 0, idleAt: 0, hover: false, hx: 0, steering: false, touched: false });
+  // onHeart: the pointer rests on a heart. The ring then holds still, so the heart stays under the cursor.
+  const m = useRef({ angle: 0, vel: 0, target: null as number | null, drag: false, moved: 0, lastX: 0, idleAt: 0, hover: false, onHeart: false, hx: 0, steering: false, touched: false });
   const press = useRef(false);
 
   useEffect(() => {
@@ -52,10 +53,15 @@ export function HeartRing({
         s.idleAt = t;
         s.touched = false;
       }
-      // Pointer steering: outside a calm centre band, the ring turns toward the pointer's side.
-      const steer = s.hover && !s.drag && s.target === null && Math.abs(s.hx) > 0.14;
+      // Pointer steering: outside a calm centre band, the ring turns toward the pointer's side, but never
+      // while the pointer rests on a heart (the heart would slide away and the cursor would flicker).
+      const steer = s.hover && !s.onHeart && !s.drag && s.target === null && Math.abs(s.hx) > 0.14;
       if (!s.drag) {
-        if (steer) {
+        if (s.onHeart && s.target === null) {
+          s.steering = false;
+          s.vel = 0;
+          s.idleAt = t;
+        } else if (steer) {
           s.angle -= (s.hx - Math.sign(s.hx) * 0.14) * 2.4 * dt;
           s.steering = true;
           s.idleAt = t;
@@ -108,6 +114,25 @@ export function HeartRing({
     s.touched = true;
   };
 
+  // Chrome hit-tests unreliably inside a 3D ring, so hearts are found by position: the front-most heart whose
+  // on-screen box contains the point. Used for clicks, for holding the ring still and for the cursor.
+  const heartAt = (x: number, y: number) => {
+    let best = -1;
+    let bestFacing = 0.2;
+    const kids = ring.current!.children;
+    for (let i = 0; i < kids.length; i++) {
+      const facing = Math.cos(((i * STEP + m.current.angle) * Math.PI) / 180);
+      const btn = kids[i].querySelector("button");
+      if (!btn || facing <= bestFacing) continue;
+      const r = btn.getBoundingClientRect();
+      if (x >= r.left && x <= r.right && y >= r.top && y <= r.bottom) {
+        best = i;
+        bestFacing = facing;
+      }
+    }
+    return best;
+  };
+
   // The pointer is captured only once it really drags; capturing on press would send the click to the
   // stage instead of the heart under the pointer.
   const onDown = (e: React.PointerEvent) => {
@@ -119,6 +144,10 @@ export function HeartRing({
     const s = m.current;
     const r = stage.current!.getBoundingClientRect();
     s.hx = (e.clientX - r.left) / r.width - 0.5;
+    // One cursor for the whole stage, set here: it cannot flicker as the pointer crosses the 3D layers.
+    const i = s.drag ? -1 : heartAt(e.clientX, e.clientY);
+    s.onHeart = i >= 0;
+    stage.current!.style.cursor = i < 0 ? "" : state(i + 1) === "locked" ? "not-allowed" : "var(--cur-press)";
     if (!press.current) return;
     const dx = e.clientX - s.lastX;
     s.lastX = e.clientX;
@@ -141,24 +170,11 @@ export function HeartRing({
     m.current.touched = true;
   };
 
-  // Clicks are resolved here: hit-testing inside a 3D ring is unreliable in Chrome. The front-most heart
-  // whose on-screen box contains the pointer wins.
+  // Clicks go through heartAt as well.
   const onStageClick = (e: React.MouseEvent) => {
     if (e.detail === 0 || m.current.moved > 8) return;
-    let best = -1;
-    let bestFacing = 0.2;
-    const kids = ring.current!.children;
-    for (let i = 0; i < kids.length; i++) {
-      const facing = Math.cos(((i * STEP + m.current.angle) * Math.PI) / 180);
-      const btn = kids[i].querySelector("button");
-      if (!btn || facing <= bestFacing) continue;
-      const r = btn.getBoundingClientRect();
-      if (e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom) {
-        best = i;
-        bestFacing = facing;
-      }
-    }
-    if (best >= 0) activate(best + 1);
+    const i = heartAt(e.clientX, e.clientY);
+    if (i >= 0) activate(i + 1);
   };
   const activate = (n: number) => {
     goTo(n - 1);
@@ -187,6 +203,8 @@ export function HeartRing({
         onPointerLeave={() => {
           m.current.hover = false;
           m.current.hx = 0;
+          m.current.onHeart = false;
+          stage.current!.style.cursor = "";
           onUp();
         }}
         className="relative mx-auto h-[clamp(300px,25vw,360px)] cursor-grab select-none overflow-hidden [perspective:1500px] active:cursor-grabbing"
@@ -210,11 +228,14 @@ export function HeartRing({
                   onClick={(e) => e.detail === 0 && activate(n)}
                   onFocus={() => goTo(n - 1)}
                   aria-label={`Día ${n}, ${label(n)}. ${st === "locked" ? "Bloqueado" : st === "preview" ? "Vista previa" : "Disponible"}`}
-                  className={`relative block rounded-full transition-transform duration-500 ease-[var(--ease-spring)] ${isFront ? "scale-110" : "scale-90"} ${st === "locked" ? "cursor-not-allowed" : "hover:scale-[1.16]"}`}
+                  className={`group relative block rounded-full transition-transform duration-500 ease-[var(--ease-spring)] ${isFront ? "scale-110" : "scale-90"} [cursor:inherit]`}
                   style={{ animation: shake === n ? "shake .5s" : undefined }}
                 >
-                  <span className={`block drop ${st !== "locked" && !reduced ? "[animation:float_4s_ease-in-out_infinite]" : ""}`} style={{ animationDelay: `${-n * 0.4}s` }}>
-                    <HeartStory n={n} state={st} opening={opening === n} size={size} />
+                  {/* The hover zoom lives on an inner layer: the button (the hit area) never changes size under the pointer. */}
+                  <span className={`block transition-transform duration-300 ease-[var(--ease-soft)] ${st !== "locked" ? "group-hover:scale-105" : ""}`}>
+                    <span className={`block drop ${st !== "locked" && !reduced ? "[animation:float_4s_ease-in-out_infinite]" : ""}`} style={{ animationDelay: `${-n * 0.4}s` }}>
+                      <HeartStory n={n} state={st} opening={opening === n} size={size} />
+                    </span>
                   </span>
                   {st === "preview" && (
                     <span className="absolute -right-2 top-0 rounded-full bg-goldfoil px-2.5 py-0.5 text-xs font-extrabold uppercase tracking-wider text-wine shadow-[0_2px_0_#d98400]">Ábreme</span>

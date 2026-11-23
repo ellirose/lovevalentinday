@@ -47,8 +47,10 @@ export function Route() {
                     type="button"
                     onClick={() => requestOpenDay(n)}
                     aria-label={`Día ${n}, ${label(n)}: ${dayTitles[n - 1]}. ${st === "locked" ? "Bloqueado" : st === "preview" ? "Vista previa" : "Disponible"}`}
-                    className={`ticket group block w-full px-7 py-5 text-left transition duration-500 ease-[var(--ease-soft)] lift ${right ? "" : "md:text-right"} ${st === "locked" ? "" : "hover:-translate-y-1"}`}
+                    className={`group block w-full rounded-[22px] text-left ${right ? "" : "md:text-right"}`}
                   >
+                    {/* The ticket lifts inside the button, so the hit area stays put under the pointer. */}
+                    <span className={`ticket block px-7 py-5 transition duration-500 ease-[var(--ease-soft)] lift ${st === "locked" ? "" : "group-hover:-translate-y-1"}`}>
                     <span className={`flex flex-wrap items-center gap-2 text-sm font-extrabold uppercase tracking-[0.16em] ${right ? "" : "md:justify-end"} ${st === "locked" ? "text-muted" : "text-rose-ink"}`}>
                       <span className="first-letter:uppercase">{label(n)}</span>
                     </span>
@@ -62,6 +64,7 @@ export function Route() {
                       <span className={`rounded-full px-3 py-1 text-sm font-extrabold ${st === "locked" ? "bg-surface-2 text-muted" : st === "preview" ? "bg-goldfoil text-wine" : "bg-rose text-white"}`}>
                         {st === "locked" ? "Se abre ese día" : st === "preview" ? "Vista previa" : "¡Ya disponible!"}
                       </span>
+                    </span>
                     </span>
                   </button>
                 </Reveal>

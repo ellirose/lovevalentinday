@@ -266,10 +266,10 @@ export function Stories() {
                     type="button"
                     onClick={() => open(n)}
                     aria-label={`Día ${n}, ${label(n)}. ${st === "locked" ? "Bloqueado" : st === "preview" ? "Vista previa" : "Disponible"}`}
-                    className={`group flex shrink-0 snap-start flex-col items-center gap-2 rounded-3xl p-1.5 transition ${st === "locked" ? "cursor-not-allowed" : "hover:-translate-y-1"}`}
+                    className={`group flex shrink-0 snap-start flex-col items-center gap-2 rounded-3xl p-1.5 ${st === "locked" ? "cursor-not-allowed" : ""}`}
                     style={{ animation: shake === n ? "shake .5s" : undefined }}
                   >
-                    <span className={`relative drop transition-transform duration-300 ${st !== "locked" ? "group-hover:scale-105" : ""}`}>
+                    <span className={`relative drop transition-transform duration-300 ${st !== "locked" ? "group-hover:-translate-y-1 group-hover:scale-105" : ""}`}>
                       <HeartStory n={n} state={st} opening={opening === n} size={104} />
                       {st === "preview" && (
                         <span className="absolute -right-1 top-0 rounded-full bg-goldfoil px-2.5 py-0.5 text-xs font-extrabold uppercase tracking-wider text-wine shadow-[0_2px_0_#d98400]">Ver</span>
