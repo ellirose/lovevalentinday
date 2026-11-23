@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { faqs, included, profile, site } from "@/content/site";
+import { closing, dayDate, faqs, included, profile, site, testimonials } from "@/content/site";
+import { AssetImage } from "./Assets";
+import { useClock } from "./days";
 import { ArchEdge, RibbonEdge, StitchEdge, TornEdge } from "./Edges";
 import { GiftCard } from "./GiftCard";
 import { Icon, LogoMark } from "./Icons";
@@ -192,119 +194,211 @@ export function Gift() {
   );
 }
 
-/* ───────── Community: Pedro's pass + hashtag sticker + polaroids ───────── */
-export function Community() {
+/* ───────── About: Pedro's pass and story (the demo's "Hecho con el corazón de Puerto Rico") ───────── */
+export function About() {
   const share = useShare();
+  return (
+    <section id="sobre" className="relative bg-surface-2 py-24 sm:py-28">
+      <ArchEdge color="var(--c-surface-2)" />
+      <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-14 px-5 lg:grid-cols-[minmax(0,380px)_minmax(0,1fr)]">
+        {/* Membership pass on a ribbon */}
+        <Reveal variant="left" className="relative pt-24">
+          <svg aria-hidden viewBox="0 0 120 110" className="absolute left-1/2 top-0 h-28 w-32 -translate-x-1/2">
+            <path d="M20 0 L52 100 M100 0 L68 100" stroke="var(--c-rose)" strokeWidth="14" strokeLinecap="round" />
+            <path d="M20 0 L52 100 M100 0 L68 100" stroke="#fff" strokeOpacity=".35" strokeWidth="2" strokeDasharray="3 6" />
+            <rect x="44" y="92" width="32" height="18" rx="5" fill="var(--c-gold)" stroke="#d98400" strokeWidth="2" />
+          </svg>
+          <Tilt max={7}>
+            <article className="pass overflow-hidden lift" style={{ rotate: "-2deg" }}>
+              <span className="pass-slot" />
+              <div className="bg-goldfoil px-6 pb-4 pt-12 text-center">
+                <p className="text-xs font-extrabold uppercase tracking-[0.3em] text-wine">Pase de repostería</p>
+                <p className="font-display text-sm font-bold text-wine/70">Edición San Valentín 2027</p>
+              </div>
+              <div className="px-6 pb-7 text-center">
+                <span className="story mx-auto mt-5 size-28">
+                  <span className="grid size-full place-items-center bg-rose pt-2 font-script text-6xl text-white">P</span>
+                </span>
+                <h3 className="mt-3 font-display text-3xl font-bold">{profile.name}</h3>
+                <p className="font-semibold text-rose-ink">{profile.line}</p>
+                <dl className="mt-5 grid grid-cols-3 rounded-[20px] border-2 border-dashed border-gold/70 p-3">
+                  {[["14", "clases"], ["14", "recetas"], ["14", "días"]].map(([n, l]) => (
+                    <div key={l}>
+                      <dt className="sr-only">{l}</dt>
+                      <dd className="font-display text-3xl font-extrabold text-rose">{n}</dd>
+                      <dd className="text-sm font-semibold text-muted">{l}</dd>
+                    </div>
+                  ))}
+                </dl>
+                <div className="mt-6 flex flex-wrap justify-center gap-3">
+                  {site.youtubeUrl && (
+                    <a href={site.youtubeUrl} target="_blank" rel="noopener noreferrer" className="btn3d">
+                      <span className="chip"><Icon name="youtube" /></span>Ver su canal
+                    </a>
+                  )}
+                  <button type="button" onClick={() => share()} className="btn3d cream">
+                    <span className="chip"><Icon name="share" /></span>Compartir
+                  </button>
+                </div>
+              </div>
+            </article>
+          </Tilt>
+        </Reveal>
+
+        <div>
+          <Reveal><Eyebrow>¿Por qué es tan especial?</Eyebrow></Reveal>
+          <H2>Hecho con el corazón <span className="font-script font-normal text-rose">de Puerto Rico</span></H2>
+          <Reveal as="p" delay={0.16} className="mt-6 max-w-2xl text-[clamp(1.1rem,1.6vw,1.3rem)] leading-relaxed text-muted">{profile.bio}</Reveal>
+          <Reveal delay={0.24} className="mt-8 flex flex-wrap gap-3">
+            {profile.values.map((v) => (
+              <span key={v} className="inline-flex items-center gap-2 rounded-full bg-surface px-4 py-2 text-base font-bold text-rose-ink lift">
+                <Icon name="heartFill" className="size-4 text-rose" />
+                {v}
+              </span>
+            ))}
+          </Reveal>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ───────── Testimonials (the demo's "Lo que dicen nuestras alumnas"): only real reviews, never samples ───────── */
+function Testimonials() {
+  const share = useShare();
+  const hearts = (
+    <span className="flex gap-1 text-gold" aria-hidden>
+      {Array.from({ length: 5 }, (_, i) => <Icon key={i} name="heartFill" className="size-6" />)}
+    </span>
+  );
+  return (
+    <div className="mt-24">
+      <div className="text-center">
+        <Reveal><Eyebrow className="justify-center">Opiniones</Eyebrow></Reveal>
+        <Reveal as="h3" delay={0.08} className="mt-4 font-display text-[clamp(2rem,4vw,3.2rem)] font-bold leading-tight">
+          Lo que dicen nuestras <span className="font-script font-normal text-rose">alumnas</span>
+        </Reveal>
+      </div>
+      {testimonials.length ? (
+        <ul className="mt-12 grid gap-8 md:grid-cols-3">
+          {testimonials.map((t, i) => (
+            <Reveal as="li" key={t.name} variant="zoom" delay={0.08 * i}>
+              <figure className="relative h-full rounded-[28px] bg-surface p-7 lift" style={{ rotate: `${[-1.5, 1, -0.5][i % 3]}deg` }}>
+                <Tape className="-top-3 left-1/2 -translate-x-1/2" />
+                {hearts}
+                <blockquote className="mt-4 font-display text-xl leading-snug">“{t.quote}”</blockquote>
+                <figcaption className="mt-4 font-bold text-rose-ink">{t.name} · <span className="font-semibold text-muted">{t.place}</span></figcaption>
+              </figure>
+            </Reveal>
+          ))}
+        </ul>
+      ) : (
+        <Reveal className="mx-auto mt-10 flex max-w-2xl flex-col items-center gap-4 rounded-[32px] border-[3px] border-dashed border-rose/40 bg-surface p-8 text-center lift">
+          {hearts}
+          <p className="font-display text-2xl font-bold leading-snug">Aquí estarán las opiniones de quienes hornean con el calendario.</p>
+          <p className="text-lg text-muted">Cuando prepares tu primera receta, cuéntanos cómo te fue con <b className="text-rose-ink">{site.hashtag}</b>.</p>
+          <button type="button" onClick={() => share()} className="btn3d cream mt-2">
+            <span className="chip"><Icon name="share" /></span>Invitar a alguien
+          </button>
+        </Reveal>
+      )}
+    </div>
+  );
+}
+
+/* ───────── Community: hashtag sticker, polaroids and reviews ───────── */
+export function Community() {
   const toast = useToast();
   const frames = ["/media/frame-1.webp", "/media/frame-2.webp", "/media/frame-3.webp"];
   return (
-    <section id="comunidad" className="relative bg-surface-2 py-24 sm:py-28">
-      <ArchEdge color="var(--c-surface-2)" />
+    <section id="comunidad" className="tex-paper relative bg-bg py-24 sm:py-28">
+      <TornEdge color="var(--c-bg)" seed={11} />
       <div className="mx-auto max-w-7xl px-5">
         <div className="text-center">
           <Reveal><Eyebrow className="justify-center">Comunidad</Eyebrow></Reveal>
           <H2>Horneamos <span className="font-script font-normal text-rose">juntos</span></H2>
         </div>
-        <div className="mt-16 grid grid-cols-1 items-start gap-12 lg:grid-cols-[minmax(0,380px)_minmax(0,1fr)]">
-          {/* Membership pass on a ribbon */}
-          <Reveal variant="left" className="relative pt-24">
-            <svg aria-hidden viewBox="0 0 120 110" className="absolute left-1/2 top-0 h-28 w-32 -translate-x-1/2">
-              <path d="M20 0 L52 100 M100 0 L68 100" stroke="var(--c-rose)" strokeWidth="14" strokeLinecap="round" />
-              <path d="M20 0 L52 100 M100 0 L68 100" stroke="#fff" strokeOpacity=".35" strokeWidth="2" strokeDasharray="3 6" />
-              <rect x="44" y="92" width="32" height="18" rx="5" fill="var(--c-gold)" stroke="#d98400" strokeWidth="2" />
-            </svg>
-            <Tilt max={7}>
-              <article className="pass overflow-hidden lift" style={{ rotate: "-2deg" }}>
-                <span className="pass-slot" />
-                <div className="bg-goldfoil px-6 pb-4 pt-12 text-center">
-                  <p className="text-xs font-extrabold uppercase tracking-[0.3em] text-wine">Pase de repostería</p>
-                  <p className="font-display text-sm font-bold text-wine/70">Edición San Valentín 2027</p>
-                </div>
-                <div className="px-6 pb-7 text-center">
-                  <span className="story mx-auto -mt-2 mt-5 size-28">
-                    <span className="grid size-full place-items-center bg-rose pt-2 font-script text-6xl text-white">P</span>
-                  </span>
-                  <h3 className="mt-3 font-display text-3xl font-bold">{profile.name}</h3>
-                  <p className="font-semibold text-rose-ink">{profile.line}</p>
-                  <dl className="mt-5 grid grid-cols-3 rounded-[20px] border-2 border-dashed border-gold/70 p-3">
-                    {[["14", "clases"], ["14", "recetas"], ["14", "días"]].map(([n, l]) => (
-                      <div key={l}>
-                        <dt className="sr-only">{l}</dt>
-                        <dd className="font-display text-3xl font-extrabold text-rose">{n}</dd>
-                        <dd className="text-sm font-semibold text-muted">{l}</dd>
-                      </div>
-                    ))}
-                  </dl>
-                  <p className="mt-5 text-base leading-relaxed text-muted">{profile.bio}</p>
-                  <div className="mt-6 flex flex-wrap justify-center gap-3">
-                    {site.youtubeUrl && (
-                      <a href={site.youtubeUrl} target="_blank" rel="noopener noreferrer" className="btn3d">
-                        <span className="chip"><Icon name="youtube" /></span>Ver su canal
-                      </a>
-                    )}
-                    <button type="button" onClick={() => share()} className="btn3d cream">
-                      <span className="chip"><Icon name="share" /></span>Compartir
-                    </button>
-                  </div>
-                </div>
-              </article>
-            </Tilt>
+        <div className="mt-16 grid grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
+          {/* Hashtag sticker */}
+          <Reveal className="sticker tex-satin bg-rose p-7 text-white lift sm:p-10" style={{ rotate: "-1.2deg" }}>
+            <p className="flex items-center gap-3 text-sm font-extrabold uppercase tracking-[0.2em] text-white"><span className="grid size-8 place-items-center rounded-full bg-goldfoil text-wine"><Icon name="hash" className="size-5" /></span>Tu hashtag</p>
+            <p className="mt-3 font-display text-[clamp(2rem,4.6vw,3.6rem)] font-extrabold leading-tight text-white [text-shadow:0_3px_0_var(--c-rose-ink)]">
+              {/* Line breaks only between the words of the hashtag, never inside one. */}
+              {site.hashtag.split(/(?<=[a-z])(?=[A-Z0-9])/).map((w, i) => (i ? [<wbr key={i} />, w] : w))}
+            </p>
+            <p className="mt-3 max-w-xl text-lg text-white/95">Cuando prepares tus recetas, toma una foto y compártela con el hashtag para encontrar a quienes hornean contigo.</p>
+            <div className="mt-7 flex flex-wrap gap-3 pr-16">
+              <button
+                type="button"
+                onClick={async () => {
+                  try {
+                    await navigator.clipboard.writeText(site.hashtag);
+                    toast("Hashtag copiado");
+                  } catch {
+                    toast("No se pudo copiar");
+                  }
+                }}
+                className="btn3d gold"
+              >
+                <span className="chip"><Icon name="hash" /></span>Copiar hashtag
+              </button>
+              <ShareRow />
+            </div>
           </Reveal>
 
-          <div className="lg:pt-10">
-            {/* Hashtag sticker */}
-            <Reveal className="sticker tex-satin bg-rose p-7 text-white lift sm:p-10" style={{ rotate: "1.2deg" }}>
-              <p className="flex items-center gap-3 text-sm font-extrabold uppercase tracking-[0.2em] text-white"><span className="grid size-8 place-items-center rounded-full bg-goldfoil text-wine"><Icon name="hash" className="size-5" /></span>Tu hashtag</p>
-              <p className="mt-3 font-display text-[clamp(2rem,4.6vw,3.6rem)] font-extrabold leading-tight text-white [text-shadow:0_3px_0_var(--c-rose-ink)]">
-                {/* Line breaks only between the words of the hashtag, never inside one. */}
-                {site.hashtag.split(/(?<=[a-z])(?=[A-Z0-9])/).map((w, i) => (i ? [<wbr key={i} />, w] : w))}
-              </p>
-              <p className="mt-3 max-w-xl text-lg text-white/95">Cuando prepares tus recetas, toma una foto y compártela con el hashtag para encontrar a quienes hornean contigo.</p>
-              <div className="mt-7 flex flex-wrap gap-3 pr-16">
-                <button
-                  type="button"
-                  onClick={async () => {
-                    try {
-                      await navigator.clipboard.writeText(site.hashtag);
-                      toast("Hashtag copiado");
-                    } catch {
-                      toast("No se pudo copiar");
-                    }
-                  }}
-                  className="btn3d gold"
-                >
-                  <span className="chip"><Icon name="hash" /></span>Copiar hashtag
-                </button>
-                <ShareRow />
+          {/* Polaroids */}
+          <ul className="grid grid-cols-2 gap-6">
+            {frames.map((f, i) => (
+              <Reveal as="li" key={f} variant="zoom" delay={0.08 * i} className="relative">
+                <Tape className="-top-3 left-1/2 -translate-x-1/2" />
+                <figure className="rounded-[8px] bg-white p-2.5 pb-3 shadow-[0_18px_30px_-14px_rgb(var(--shadow-rgb)/0.5)] transition duration-500 hover:rotate-0 hover:scale-105" style={{ rotate: `${[-4, 3, -2][i]}deg` }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element -- static export, no image optimizer */}
+                  <img src={f} alt="Galletas horneándose" loading="lazy" className="aspect-square w-full rounded-[4px] object-cover" />
+                  <figcaption className="mt-2 text-center font-script text-2xl leading-none text-rose">Inspiración</figcaption>
+                </figure>
+              </Reveal>
+            ))}
+            <Reveal as="li" variant="zoom" delay={0.24} className="relative">
+              <Tape className="-top-3 left-1/2 -translate-x-1/2 rotate-6" />
+              <div className="grid aspect-[0.86] place-items-center rounded-[8px] border-[3px] border-dashed border-rose/50 bg-surface p-3 text-center text-rose-ink" style={{ rotate: "4deg" }}>
+                <div>
+                  <Icon name="camera" className="mx-auto size-12" />
+                  <p className="mt-2 font-bold leading-tight">Tu foto aquí</p>
+                </div>
               </div>
             </Reveal>
-
-            {/* Polaroids */}
-            <ul className="mt-12 grid grid-cols-2 gap-6 sm:grid-cols-4">
-              {frames.map((f, i) => (
-                <Reveal as="li" key={f} variant="zoom" delay={0.08 * i} className="relative">
-                  <Tape className="-top-3 left-1/2 -translate-x-1/2" />
-                  <figure className="rounded-[8px] bg-white p-2.5 pb-3 shadow-[0_18px_30px_-14px_rgb(var(--shadow-rgb)/0.5)] transition duration-500 hover:rotate-0 hover:scale-105" style={{ rotate: `${[-4, 3, -2][i]}deg` }}>
-                    {/* eslint-disable-next-line @next/next/no-img-element -- static export, no image optimizer */}
-                    <img src={f} alt="Galletas horneándose" loading="lazy" className="aspect-square w-full rounded-[4px] object-cover" />
-                    <figcaption className="mt-2 text-center font-script text-2xl leading-none text-rose">Inspiración</figcaption>
-                  </figure>
-                </Reveal>
-              ))}
-              <Reveal as="li" variant="zoom" delay={0.24} className="relative">
-                <Tape className="-top-3 left-1/2 -translate-x-1/2 rotate-6" />
-                <div className="grid aspect-[0.86] place-items-center rounded-[8px] border-[3px] border-dashed border-rose/50 bg-surface p-3 text-center text-rose-ink" style={{ rotate: "4deg" }}>
-                  <div>
-                    <Icon name="camera" className="mx-auto size-12" />
-                    <p className="mt-2 font-bold leading-tight">Tu foto aquí</p>
-                  </div>
-                </div>
-              </Reveal>
-            </ul>
-          </div>
+          </ul>
         </div>
+        <Testimonials />
       </div>
     </section>
+  );
+}
+
+/* ───────── Countdown to the first heart (a real date, unlike the demo's timer that restarted) ───────── */
+function Countdown() {
+  const now = useClock();
+  if (now === null) return null;
+  const left = dayDate(1).getTime() - now;
+  if (left <= 0) return null;
+  const parts: [number, string][] = [
+    [Math.floor(left / 86_400_000), "días"],
+    [Math.floor(left / 3_600_000) % 24, "horas"],
+    [Math.floor(left / 60_000) % 60, "min"],
+    [Math.floor(left / 1000) % 60, "seg"],
+  ];
+  return (
+    <div className="mt-6">
+      <p className="text-sm font-extrabold uppercase tracking-[0.2em] text-white">Faltan para el primer corazón</p>
+      <div className="mt-2 flex flex-wrap gap-2.5" role="timer" aria-label={`Faltan ${parts[0][0]} días y ${parts[1][0]} horas para el primer corazón`}>
+        {parts.map(([v, l]) => (
+          <span key={l} aria-hidden className="grid min-w-[62px] place-items-center rounded-2xl bg-surface px-2 py-2 text-rose-ink shadow-[0_4px_0_var(--c-rose-ink)]">
+            <b className="font-display text-3xl leading-none tabular-nums">{String(v).padStart(2, "0")}</b>
+            <small className="mt-1 text-xs font-bold uppercase tracking-wider text-muted">{l}</small>
+          </span>
+        ))}
+      </div>
+    </div>
   );
 }
 
@@ -312,8 +406,8 @@ export function Community() {
 export function Offer() {
   const price = site.price;
   return (
-    <section id="precio" className="tex-paper relative bg-bg py-24 sm:py-28">
-      <TornEdge color="var(--c-bg)" seed={23} />
+    <section id="precio" className="tex-paper relative bg-cream py-24 sm:py-28">
+      <TornEdge color="var(--c-cream)" seed={23} />
       <div className="mx-auto max-w-6xl px-5">
         <div className="text-center">
           <Reveal><Eyebrow className="justify-center">Edición San Valentín 2027</Eyebrow></Reveal>
@@ -337,6 +431,7 @@ export function Offer() {
                       <p className="mt-4 font-display text-[clamp(3rem,6.4vw,4.6rem)] font-extrabold leading-none text-white [text-shadow:0_4px_0_var(--c-rose-ink)]">Muy pronto</p>
                     )}
                     <p className="mt-4 text-lg text-white/95">Pago único. Un corazón nuevo cada día del 1 al 14 de febrero.</p>
+                    <Countdown />
                     <div className="mt-8 flex flex-wrap gap-4">
                       {site.checkoutUrl ? (
                         <a href={site.checkoutUrl} className="btn3d gold lg"><span className="chip"><Icon name="heartFill" className="text-rose" /></span>Quiero mi calendario</a>
@@ -457,6 +552,24 @@ export function Faq() {
             </div>
           </div>
         </Reveal>
+      </div>
+    </section>
+  );
+}
+
+/* ───────── Closing call to action (the demo's last screen) ───────── */
+export function Closing() {
+  return (
+    <section className="tex-paper relative overflow-hidden bg-bg py-24 text-center sm:py-32">
+      <TornEdge color="var(--c-bg)" seed={5} />
+      <AssetImage name="cookie-heart" alt="" sizes="160px" className="pointer-events-none absolute -left-6 top-16 w-28 rotate-[-18deg] drop sm:left-[8%] sm:w-40" />
+      <AssetImage name="cookie-heart" alt="" sizes="160px" className="pointer-events-none absolute -right-4 bottom-10 w-24 rotate-[14deg] drop sm:right-[9%] sm:w-36" />
+      <div className="relative mx-auto max-w-3xl px-5">
+        <Reveal as="h2" className="font-script text-[clamp(3.4rem,9vw,7rem)] leading-[1.05] text-rose [text-shadow:0_4px_0_rgb(255_194_26/.55)]">{closing.title}</Reveal>
+        <Reveal delay={0.12} className="mt-8 flex justify-center">
+          <a href="#precio" className="btn3d gold lg"><span className="chip"><Icon name="heartFill" className="text-rose" /></span>Quiero mi calendario</a>
+        </Reveal>
+        <Reveal as="p" delay={0.2} className="mt-6 font-display text-xl italic text-muted">{closing.line}</Reveal>
       </div>
     </section>
   );

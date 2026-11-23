@@ -91,14 +91,14 @@ export function Header() {
           <Logo compact={!on} />
         </a>
 
-        <nav aria-label="Principal" className="hidden lg:block">
+        <nav aria-label="Principal" className="hidden xl:block">
           <ul className={`flex items-center gap-1 rounded-full p-1.5 transition ${on ? "" : "bg-surface/90 lift backdrop-blur-md"}`}>
             {nav.map((n) => (
               <li key={n.href}>
                 <a
                   href={n.href}
                   aria-current={active === n.href ? "true" : undefined}
-                  className={`relative block whitespace-nowrap rounded-full px-3.5 py-2.5 text-[0.98rem] font-bold transition ${active === n.href ? "bg-rose text-white shadow-[0_3px_0_#a10d44]" : "text-ink hover:bg-surface-2"}`}
+                  className={`relative block whitespace-nowrap rounded-full px-3 py-2.5 text-[0.95rem] font-bold transition ${active === n.href ? "bg-rose text-white shadow-[0_3px_0_#a10d44]" : "text-ink hover:bg-surface-2"}`}
                 >
                   {n.label}
                 </a>
@@ -107,13 +107,13 @@ export function Header() {
           </ul>
         </nav>
 
-        <div className={`flex items-center gap-2.5 rounded-full transition ${on ? "" : "lg:bg-surface/90 lg:p-1.5 lg:lift lg:backdrop-blur-md"}`}>
+        <div className={`flex items-center gap-2.5 rounded-full transition ${on ? "" : "xl:bg-surface/90 xl:p-1.5 xl:lift xl:backdrop-blur-md"}`}>
           <button type="button" onClick={() => share()} aria-label="Compartir" className="btn3d sm icon-only cream">
             <Icon name="share" className="size-6" />
           </button>
           <SoundButton />
-          <div className={on ? "hidden sm:block" : "hidden lg:block"}><ThemeSwitch /></div>
-          <a href="#precio" className={`btn3d sm gold ${on ? "hidden md:inline-flex" : "hidden lg:inline-flex"}`}>
+          <div className={on ? "hidden sm:block" : "hidden xl:block"}><ThemeSwitch /></div>
+          <a href="#precio" className={`btn3d sm gold ${on ? "hidden md:inline-flex" : "hidden xl:inline-flex"}`}>
             <span className="chip"><Icon name="gift" /></span>Quiero mi calendario
           </a>
           <button
@@ -122,7 +122,7 @@ export function Header() {
             aria-expanded={open}
             aria-controls="menu-movil"
             aria-label={open ? "Cerrar menú" : "Abrir menú"}
-            className="btn3d sm icon-only lg:hidden"
+            className="btn3d sm icon-only xl:hidden"
           >
             <span className={`absolute h-0.5 w-5 rounded bg-current transition duration-300 ${open ? "rotate-45" : "-translate-y-1.5"}`} />
             <span className={`absolute h-0.5 w-5 rounded bg-current transition duration-300 ${open ? "-rotate-45" : "translate-y-1.5"}`} />
@@ -133,7 +133,7 @@ export function Header() {
       <div
         id="menu-movil"
         hidden={!open}
-        className="tex-linen fixed inset-x-3 bottom-3 top-[calc(max(10px,env(safe-area-inset-top))+74px)] overflow-auto rounded-[34px] bg-surface p-5 lift lg:hidden"
+        className="tex-linen fixed inset-x-3 bottom-3 top-[calc(max(10px,env(safe-area-inset-top))+74px)] overflow-auto rounded-[34px] bg-surface p-5 lift xl:hidden"
       >
         <nav aria-label="Menú">
           <ul className="space-y-2.5">

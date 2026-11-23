@@ -40,8 +40,11 @@ This Next.js version differs from older releases; read `node_modules/next/dist/d
 |---|---|
 | `src/content/site.ts` | All copy and settings: launch date, price, links, questions |
 | `src/components/Hero.tsx` | Full-screen landing; layout rules are the `.hero-*` classes in `globals.css` |
-| `src/components/Stories.tsx` | Day stories, unlock dates and the story viewer |
-| `src/components/Sections.tsx` | Feed, gift, community, offer and chat sections |
+| `src/components/Intro.tsx` | Intro under the landing, with the 3D calendar book |
+| `src/components/Stories.tsx`, `HeartRing.tsx`, `days.ts` | Day stories and story viewer; the demo's 3D ring of hearts on desktop; shared unlock dates |
+| `src/components/Route.tsx` | "Tu ruta del amor": the 14 days along a ribbon |
+| `src/components/Inside.tsx` | "¿Qué encontrarás dentro?" index cards and the "Mucho más que videos" band |
+| `src/components/Sections.tsx` | Feed, gift, about, community with reviews, offer with countdown, chat questions and closing |
 | `src/components/GiftCard.tsx` | Love postcard drawn on canvas, download and share |
 | `src/components/Social.tsx` | Sharing, toasts, reminders (.ics), likes |
 | `src/components/HeroSparkles.tsx`, `SprinkleHeart.tsx`, `CursorHearts.tsx` | Canvas effects |

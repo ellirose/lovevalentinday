@@ -2,7 +2,10 @@ import { CursorHearts } from "@/components/CursorHearts";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
-import { Community, Faq, Feed, Gift, Offer } from "@/components/Sections";
+import { Inside } from "@/components/Inside";
+import { Intro } from "@/components/Intro";
+import { Route } from "@/components/Route";
+import { About, Closing, Community, Faq, Feed, Gift, Offer } from "@/components/Sections";
 import { ToastProvider } from "@/components/Social";
 import { Stories } from "@/components/Stories";
 
@@ -15,12 +18,17 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
+        <Intro />
         <Stories />
+        <Route />
         <Feed />
+        <Inside />
         <Gift />
+        <About />
         <Community />
         <Offer />
         <Faq />
+        <Closing />
       </main>
       <Footer />
       <CursorHearts />

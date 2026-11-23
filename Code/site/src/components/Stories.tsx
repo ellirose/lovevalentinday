@@ -1,74 +1,16 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
-import { dayDate, highlights, months, preview, site } from "@/content/site";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { dayDate, highlights, preview, site } from "@/content/site";
+import { type DayState as State, label, N, OPEN_DAY, short, useDayState } from "./days";
 import { FrostingEdge } from "./Edges";
+import { HeartRing } from "./HeartRing";
+import { HeartStory } from "./HeartStory";
 import { Icon, IconName, LogoMark } from "./Icons";
 import { burst, downloadReminders, ShareRow, useShare, useToast } from "./Social";
 import { useSound } from "./SoundProvider";
 import { Eyebrow, Reveal, useReducedMotion } from "./ui";
 import { VideoPlayer } from "./VideoPlayer";
-
-type State = "locked" | "preview" | "open";
-const N = site.days;
-const weekday = ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"];
-// Date parts in the release time zone (Puerto Rico, UTC-4), whatever the visitor's own zone is.
-const pr = (d: Date) => new Date(d.getTime() - 4 * 3600_000);
-const label = (n: number) => {
-  const d = pr(dayDate(n));
-  return `${weekday[d.getUTCDay()]} ${d.getUTCDate()} de ${months[d.getUTCMonth()]}`;
-};
-const short = (n: number) => `${pr(dayDate(n)).getUTCDate()} feb`;
-
-const subscribeMinute = (cb: () => void) => {
-  const id = window.setInterval(cb, 60_000);
-  return () => window.clearInterval(id);
-};
-const minuteNow = () => Math.floor(Date.now() / 60_000) * 60_000;
-const useNow = () => useSyncExternalStore<number | null>(subscribeMinute, minuteNow, () => null);
-
-const HEART = "M50 93C17 70 3 52 3 32 3 16 15 5 29 5c9 0 17 5 21 13 4-8 12-13 21-13 14 0 26 11 26 27 0 20-14 38-47 61z";
-
-/** Heart-shaped story bubble: gradient ring, inner heart that splits open on its hinges. */
-function HeartStory({ n, state, opening, size }: { n: number; state: State; opening: boolean; size: number }) {
-  const locked = state === "locked";
-  const half = (side: "l" | "r") => (
-    <span
-      className={`absolute inset-0 transition-transform duration-[700ms] ease-[var(--ease-soft)] ${side === "l" ? "origin-left [clip-path:inset(0_50%_0_0)]" : "origin-right [clip-path:inset(0_0_0_50%)]"}`}
-      style={{ transform: opening ? `rotateY(${side === "l" ? -125 : 125}deg)` : undefined }}
-    >
-      <svg viewBox="0 0 100 100" className="size-full">
-        <path d={HEART} fill={locked ? "var(--c-line)" : "var(--c-rose)"} transform="translate(13 13) scale(.74)" />
-        {!locked && <path d="M30 34c0-7 5-11 11-11" stroke="#fff" strokeOpacity=".6" strokeWidth="4" strokeLinecap="round" fill="none" />}
-      </svg>
-    </span>
-  );
-  return (
-    <span className="relative block [perspective:500px]" style={{ width: size, height: size }}>
-      <svg viewBox="0 0 100 100" className="absolute inset-0 size-full overflow-visible" aria-hidden>
-        <defs>
-          <linearGradient id={`ring${n}`} x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stopColor="#ffd34d" />
-            <stop offset=".45" stopColor="#ff3d7f" />
-            <stop offset="1" stopColor="#b5179e" />
-            {state === "preview" && <animateTransform attributeName="gradientTransform" type="rotate" from="0 .5 .5" to="360 .5 .5" dur="3s" repeatCount="indefinite" />}
-          </linearGradient>
-        </defs>
-        <path d={HEART} fill="none" stroke={locked ? "var(--c-line)" : `url(#ring${n})`} strokeWidth="5" />
-      </svg>
-      <span aria-hidden className="absolute inset-[26%] rounded-full bg-goldfoil opacity-90 blur-[2px]" />
-      {half("l")}
-      {half("r")}
-      <span className={`pointer-events-none absolute inset-0 grid place-items-center pb-[6%] transition-opacity ${opening ? "opacity-0" : ""}`}>
-        {locked ? (
-          <Icon name="lock" className="size-[34%] text-muted" />
-        ) : (
-          <span className="font-display font-extrabold text-white [text-shadow:0_2px_0_rgb(0_0_0/.15)]" style={{ fontSize: size * 0.3 }}>{n}</span>
-        )}
-      </span>
-    </span>
-  );
-}
 
 /* ───────── Story viewer ───────── */
 function StoryViewer({ day, state, onClose }: { day: number; state: State; onClose: () => void }) {
@@ -233,7 +175,7 @@ function StoryViewer({ day, state, onClose }: { day: number; state: State; onClo
 
 /* ───────── Section ───────── */
 export function Stories() {
-  const now = useNow();
+  const { now, state } = useDayState();
   const reduced = useReducedMotion();
   const { chime } = useSound();
   const toast = useToast();
@@ -243,25 +185,30 @@ export function Stories() {
   const [viewing, setViewing] = useState<number | null>(null);
   const [shake, setShake] = useState<number | null>(null);
 
-  const state = (n: number): State => {
-    if (now === null) return n === 1 ? "preview" : "locked";
-    if (now >= dayDate(n).getTime()) return "open";
-    return n === 1 ? "preview" : "locked";
-  };
   const daysLeft = now === null ? null : Math.ceil((dayDate(1).getTime() - now) / 86_400_000);
 
-  const open = (n: number) => {
-    const st = state(n);
-    if (st === "locked") {
-      setShake(n);
-      window.setTimeout(() => setShake(null), 600);
-      toast(`Este corazón se abre el ${label(n)}`);
-      return;
-    }
-    setOpening(n);
-    chime();
-    window.setTimeout(() => setViewing(n), reduced ? 0 : 620);
-  };
+  const open = useCallback(
+    (n: number) => {
+      const st = state(n);
+      if (st === "locked") {
+        setShake(n);
+        window.setTimeout(() => setShake(null), 600);
+        toast(`Este corazón se abre el ${label(n)}`);
+        return;
+      }
+      setOpening(n);
+      chime();
+      window.setTimeout(() => setViewing(n), reduced ? 0 : 620);
+    },
+    [state, toast, chime, reduced],
+  );
+
+  // Other views (timeline, intro) open days through the same viewer.
+  useEffect(() => {
+    const on = (e: Event) => open((e as CustomEvent<number>).detail);
+    window.addEventListener(OPEN_DAY, on);
+    return () => window.removeEventListener(OPEN_DAY, on);
+  }, [open]);
   const scroll = (dir: number) => strip.current?.scrollBy({ left: dir * strip.current.clientWidth * 0.7, behavior: "smooth" });
 
   return (
@@ -302,7 +249,11 @@ export function Stories() {
             </div>
           </div>
 
-          <div className="mt-5 flex items-center gap-2">
+          {/* Desktop: the 3D ring of hearts from the demo. Phones and tablets: a swipeable strip. */}
+          <div className="hidden lg:block">
+            <HeartRing state={state} opening={opening} shake={shake} onOpen={open} />
+          </div>
+          <div className="mt-5 flex items-center gap-2 lg:hidden">
             <button type="button" onClick={() => scroll(-1)} aria-label="Ver días anteriores" className="btn3d sm icon-only cream mb-8 hidden shrink-0 sm:inline-flex">
               <Icon name="left" className="size-5" />
             </button>

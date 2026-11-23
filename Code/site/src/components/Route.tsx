@@ -1,0 +1,76 @@
+"use client";
+
+import { dayTitles } from "@/content/site";
+import { label, N, requestOpenDay, useDayState } from "./days";
+import { ArchEdge } from "./Edges";
+import { Icon } from "./Icons";
+import { Eyebrow, Reveal } from "./ui";
+
+/** The demo's "ruta del amor": the 14 days along a satin ribbon, each one a ticket that opens its day. */
+export function Route() {
+  const { state } = useDayState();
+  return (
+    <section id="ruta" className="tex-paper relative bg-bg py-24 sm:py-28">
+      <ArchEdge color="var(--c-bg)" />
+      <div className="mx-auto max-w-6xl px-5">
+        <div className="text-center">
+          <Reveal><Eyebrow className="justify-center">Tu ruta del amor</Eyebrow></Reveal>
+          <Reveal as="h2" delay={0.08} className="mt-4 font-display text-[clamp(2.4rem,5.2vw,4.4rem)] font-bold leading-[1.03]">
+            Un día nuevo, <span className="font-script font-normal text-rose">una receta nueva</span>
+          </Reveal>
+          <Reveal as="p" delay={0.16} className="mx-auto mt-5 max-w-2xl text-lg text-muted">
+            Así se ve tu febrero: cada corazón trae su clase en video y su receta. Toca un día para verlo.
+          </Reveal>
+        </div>
+
+        <ol className="relative mt-16">
+          <span aria-hidden className="route-line left-[21px] md:left-1/2 md:-translate-x-1/2" />
+          {Array.from({ length: N }, (_, i) => i + 1).map((n) => {
+            const st = state(n);
+            const right = n % 2 === 0;
+            return (
+              <li key={n} className="relative grid grid-cols-[52px_minmax(0,1fr)] items-center gap-4 py-3 md:grid-cols-[minmax(0,1fr)_64px_minmax(0,1fr)] md:gap-6">
+                {/* Node on the ribbon */}
+                <span className={`relative z-10 col-start-1 row-start-1 grid size-[52px] place-items-center md:col-start-2 md:mx-auto ${st === "locked" ? "text-muted" : "text-rose"}`}>
+                  <svg viewBox="0 0 48 48" className="absolute inset-0 size-full drop" aria-hidden>
+                    <path d="M24 43C11 34 4 26 4 18 4 11 9 6 15.5 6c3.7 0 6.8 2 8.5 5 1.7-3 4.8-5 8.5-5C39 6 44 11 44 18c0 8-7 16-20 25Z" fill={st === "locked" ? "var(--c-surface)" : st === "preview" ? "var(--c-gold)" : "currentColor"} stroke={st === "locked" ? "var(--c-line)" : "#fff"} strokeWidth="2.5" />
+                  </svg>
+                  <span className={`relative pb-1 font-display text-lg font-extrabold ${st === "locked" ? "text-muted" : st === "preview" ? "text-wine" : "text-white"}`}>{n}</span>
+                </span>
+
+                {/* Ticket */}
+                <Reveal
+                  variant={right ? "right" : "left"}
+                  className={`col-start-2 row-start-1 ${right ? "md:col-start-3" : "md:col-start-1"}`}
+                >
+                  <button
+                    type="button"
+                    onClick={() => requestOpenDay(n)}
+                    aria-label={`Día ${n}, ${label(n)}: ${dayTitles[n - 1]}. ${st === "locked" ? "Bloqueado" : st === "preview" ? "Vista previa" : "Disponible"}`}
+                    className={`ticket group block w-full px-7 py-5 text-left transition duration-500 ease-[var(--ease-soft)] lift ${right ? "" : "md:text-right"} ${st === "locked" ? "" : "hover:-translate-y-1"}`}
+                  >
+                    <span className={`flex flex-wrap items-center gap-2 text-sm font-extrabold uppercase tracking-[0.16em] ${right ? "" : "md:justify-end"} ${st === "locked" ? "text-muted" : "text-rose-ink"}`}>
+                      <span className="first-letter:uppercase">{label(n)}</span>
+                    </span>
+                    <span className="mt-1 flex items-center gap-2 font-display text-2xl font-bold leading-snug text-ink md:inline-flex">
+                      {st === "locked" && <Icon name="lock" className="size-5 shrink-0 text-muted" />}
+                      {dayTitles[n - 1]}
+                    </span>
+                    <span className={`mt-3 flex flex-wrap items-center gap-2 ${right ? "" : "md:justify-end"}`}>
+                      <span className="inline-flex items-center gap-1.5 rounded-full bg-surface-2 px-3 py-1 text-sm font-bold text-rose-ink"><Icon name="video" className="size-4" />Video</span>
+                      <span className="inline-flex items-center gap-1.5 rounded-full bg-surface-2 px-3 py-1 text-sm font-bold text-rose-ink"><Icon name="recipe" className="size-4" />Receta PDF</span>
+                      <span className={`rounded-full px-3 py-1 text-sm font-extrabold ${st === "locked" ? "bg-surface-2 text-muted" : st === "preview" ? "bg-goldfoil text-wine" : "bg-rose text-white"}`}>
+                        {st === "locked" ? "Se abre ese día" : st === "preview" ? "Vista previa" : "¡Ya disponible!"}
+                      </span>
+                    </span>
+                  </button>
+                </Reveal>
+              </li>
+            );
+          })}
+        </ol>
+        <p className="mt-8 text-center text-sm text-muted">Títulos de muestra: la lista final de recetas llegará muy pronto.</p>
+      </div>
+    </section>
+  );
+}

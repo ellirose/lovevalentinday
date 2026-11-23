@@ -25,11 +25,64 @@ export const site = {
 
 export const nav = [
   { href: "#calendario", label: "Calendario" },
-  { href: "#incluye", label: "Qué incluye" },
+  { href: "#ruta", label: "Ruta" },
+  { href: "#incluye", label: "Incluye" },
   { href: "#regala", label: "Regala" },
   { href: "#comunidad", label: "Comunidad" },
+  { href: "#precio", label: "Precio" },
   { href: "#preguntas", label: "Preguntas" },
 ];
+
+// Intro under the landing (the demo's second screen with the 3D book).
+export const intro = {
+  eyebrow: "Edición San Valentín 2027",
+  title: "14 días de amor,",
+  accent: "sabor y repostería",
+  lead: "Del 1 al 14 de febrero se abre un corazón nuevo cada día con una clase en video, su receta descargable y trucos para que tus postres enamoren.",
+};
+
+// Day titles from the approved demo, shown as samples. TODO(Pedro): replace with the real list.
+// Day 12 differs from the demo, which repeated Red Velvet (D18).
+export const dayTitles = [
+  "Cupcakes de terciopelo rojo",
+  "Fresas con chocolate",
+  "Pastel esponjoso de vainilla",
+  "Crema de limón",
+  "Cheesecake de guayaba",
+  "Relleno de pistacho",
+  "Pastel en forma de corazón",
+  "Decoración con manga",
+  "Rosas de buttercream",
+  "Ganache de chocolate",
+  "Tembleque romántico",
+  "Trufas de chocolate y frambuesa",
+  "Galletas con glaseado",
+  "Gran final: pastel de amor",
+];
+
+// "¿Qué encontrarás dentro?" from the demo. Icons are in assets/icons. TODO(Pedro): confirm the topics.
+export const categories = [
+  { icon: "strawberry", title: "Postres románticos", text: "Cheesecake de guayaba, fresas con chocolate, cupcakes de terciopelo rojo y más." },
+  { icon: "heart-cake", title: "Pasteles de corazón", list: ["Moldeado y relleno", "Cubierta de crema suave", "Decoración con manga"] },
+  { icon: "ganache-drip", title: "Rellenos y coberturas", text: "Crema de limón, ganache, dulce de leche y combinaciones que transforman cualquier pastel." },
+  { icon: "piping-bag", title: "Decoración creativa", text: "Rosas de buttercream, lazos, detalles dorados y empaque para regalo." },
+] as const;
+
+// "Mucho más que videos": only what the calendar really includes (the demo's business extras were the
+// reference seller's and are not part of this product).
+export const extras = [
+  { icon: "recipe", text: "Recetas en PDF para descargar e imprimir" },
+  { icon: "video", text: "Clases en video para guardar" },
+  { icon: "device", text: "En tu teléfono, tableta o computadora" },
+] as const;
+
+// TODO(Pedro): real reviews from buyers, with their permission. While empty, the section invites the first ones.
+export const testimonials: { quote: string; name: string; place: string }[] = [];
+
+export const closing = {
+  title: "¡Nos vemos en febrero!",
+  line: "Un regalo dulce para ti y para quien más quieres.",
+};
 
 export const months = ["enero", "febrero", "marzo"];
 
@@ -88,6 +141,8 @@ export const faqs = [
 export const profile = {
   name: "Pedro",
   line: "Repostería con corazón · Puerto Rico → Nueva York",
+  // Shown as chips beside the story; plain descriptions of the product, not claims about results.
+  values: ["Sabor de Puerto Rico", "Paso a paso", "Para hornear todo el año"],
   bio: "Pedro es puertorriqueño, vive en Nueva York y comparte su repostería en YouTube. Este calendario reúne 14 de sus recetas para San Valentín, explicadas paso a paso para que las prepares en casa.",
 };
 
