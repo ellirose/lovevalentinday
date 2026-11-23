@@ -13,6 +13,19 @@ npm start        # serves out/ locally
 
 The cover backgrounds in `public/img` are produced by `docs/design/export_images.py` into `Code/assets/img`. `predev` and `prebuild` refresh `public/img` from there when that folder exists; otherwise the committed copies are used.
 
+## Images and icons from Codex
+
+Masters live in `assets/`. Save images as `assets/images/<name>.png`, with an optional `<name>.json` holding `{"alt": "…"}`, and icons as `assets/icons/<name>.svg`. `npm run dev` watches that folder: each new or changed file is optimized right away (AVIF, WebP and PNG or JPG at several widths, at most 350 KB each) and appears in the running site. `npm run assets` does the same once, and `npm run build` runs it first.
+
+Codex can also be asked from the terminal. It finds the Codex CLI on `PATH` or in the OpenAI extension for VS Code, saves the result into `assets/` and runs the pipeline:
+
+```bash
+npm run codex -- image cookie-heart "heart-shaped sugar cookie with pink icing" --transparent
+npm run codex -- icon rolling-pin "a rolling pin with a small heart"
+```
+
+Use the results through `src/components/Assets.tsx`: `<AssetImage name="cookie-heart" sizes="40vw" />` and `<AssetIcon name="rolling-pin" className="size-8 text-rose" />`. The names are typed, so a missing asset is a build error. File names, style and icon format are specified in the root `AGENTS.md`, which Codex reads automatically.
+
 ## Deploy on Vercel
 
 - Import the repository and set **Root Directory** to `Code/site`.
