@@ -1,8 +1,8 @@
 "use client";
 
 import { useRef } from "react";
-import { intro } from "@/content/site";
-import { AssetIcon, AssetImage } from "./Assets";
+import { intro, site } from "@/content/site";
+import { AssetImage, Icon3D } from "./Assets";
 import { FrostingEdge } from "./Edges";
 import { Icon, LogoMark } from "./Icons";
 import { Eyebrow, Reveal } from "./ui";
@@ -27,10 +27,10 @@ export function Intro() {
   };
 
   const orbiters = [
-    { a: "0deg", y: "18%", el: <span className="grid size-16 place-items-center rounded-full bg-surface text-rose lift"><AssetIcon name="strawberry" className="size-10" /></span> },
+    { a: "0deg", y: "18%", el: <Icon3D name="strawberry" className="size-20 drop" /> },
     { a: "72deg", y: "70%", el: <AssetImage name="cookie-heart" alt="" sizes="96px" className="w-24 drop" /> },
-    { a: "144deg", y: "34%", el: <Icon name="sparkle" className="size-12 text-gold-deep" /> },
-    { a: "216deg", y: "82%", el: <span className="grid size-16 place-items-center rounded-full bg-surface text-rose lift"><AssetIcon name="heart-cake" className="size-10" /></span> },
+    { a: "144deg", y: "34%", el: <Icon3D name="sparkle" className="size-14 drop" /> },
+    { a: "216deg", y: "82%", el: <Icon3D name="heart-cake" className="size-20 drop" /> },
     { a: "288deg", y: "8%", el: <LogoMark className="size-14 drop" /> },
   ];
 
@@ -39,7 +39,7 @@ export function Intro() {
       <FrostingEdge color="var(--c-bg)" />
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-14 px-5 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)]">
         <div>
-          <Reveal><Eyebrow>{intro.eyebrow}</Eyebrow></Reveal>
+          <Reveal><Eyebrow icon="gift">{intro.eyebrow}</Eyebrow></Reveal>
           <Reveal as="h2" delay={0.08} className="mt-4 font-display text-[clamp(2.6rem,5.6vw,4.8rem)] font-bold leading-[1.03]">
             {intro.title} <span className="font-script font-normal text-rose">{intro.accent}</span>
           </Reveal>
@@ -49,7 +49,7 @@ export function Intro() {
             <a href="#calendario" className="btn3d cream lg"><span className="chip"><Icon name="heartFill" /></span>Ver los corazones</a>
           </Reveal>
           <Reveal delay={0.3} className="mt-10 flex flex-wrap gap-3">
-            {[["14", "clases en video"], ["14", "recetas en PDF"], ["14", "corazones"]].map(([n, t]) => (
+            {[["14", "corazones"], ["8:00", "cada mañana"], ["1", "plan para el 14"]].map(([n, t]) => (
               <span key={t} className="inline-flex items-center gap-2 rounded-full bg-surface px-4 py-2 lift">
                 <b className="font-display text-2xl text-rose">{n}</b>
                 <span className="text-base font-semibold text-muted">{t}</span>
@@ -61,17 +61,17 @@ export function Intro() {
         <Reveal variant="right" delay={0.1}>
           <div ref={scene} onPointerMove={onMove} onPointerLeave={onLeave} className="book-scene h-[clamp(420px,46vw,560px)]">
             <div aria-hidden className="absolute bottom-[8%] h-10 w-[60%] rounded-[50%] bg-rose/25 blur-2xl" />
-            <div ref={book} className="book" role="img" aria-label="Libro del Calendario de San Valentín 2027: 14 clases y 14 recetas">
+            <div ref={book} className="book" role="img" aria-label={`Libro del calendario «${site.name}», San Valentín 2027`}>
               <div className="book-back" />
               <div className="book-spine" />
               <div className="book-pages" />
               <div className="book-top" />
               <div className="book-cover tex-satin flex flex-col items-center justify-center p-6 text-center">
                 <span aria-hidden className="pointer-events-none absolute inset-3 rounded-[4px_14px_14px_4px] border-2 border-dashed border-gold-hi/70" />
-                <p className="text-[0.7rem] font-extrabold uppercase tracking-[0.28em] text-gold-hi">14 clases · 14 recetas</p>
+                <p className="text-[0.7rem] font-extrabold uppercase tracking-[0.28em] text-gold-hi">Calendario de San Valentín</p>
                 <LogoMark className="mt-4 size-20 drop" />
-                <p className="mt-3 text-xs font-bold uppercase tracking-[0.26em] text-white/90">Calendario de</p>
-                <p className="font-script text-[2.7rem] leading-[1.1] text-goldfoil">San Valentín</p>
+                <p className="mt-3 text-xs font-bold uppercase tracking-[0.26em] text-white/90">14 días de</p>
+                <p className="pt-1 font-script text-[2.7rem] leading-[1.1] text-goldfoil">Dulce Amor</p>
                 <span className="mt-2 rounded-full bg-goldfoil px-3 font-display text-lg font-extrabold tracking-[0.2em] text-wine shadow-[0_3px_0_#d98400]">2027</span>
               </div>
               <div className="book-ribbon" />

@@ -15,7 +15,8 @@ type ImageProps = {
 export function AssetImage({ name, alt, className, sizes = "100vw", priority = false }: ImageProps) {
   const img = images[name];
   return (
-    <picture>
+    // display: contents lets the img itself be the layout box, so size classes work inside flex rows.
+    <picture className="contents">
       {img.avif && <source type="image/avif" srcSet={img.avif} sizes={sizes} />}
       {img.webp && <source type="image/webp" srcSet={img.webp} sizes={sizes} />}
       <img
@@ -54,3 +55,16 @@ export function AssetIcon({ name, className = "size-6", title }: IconProps) {
     />
   );
 }
+
+export type Icon3DName = ImageName extends infer T ? (T extends `icon-${infer N}` ? N : never) : never;
+
+/**
+ * The glossy 3D icon set (assets/images/icon-*.png) for feature spots and headings. Decorative by default;
+ * pass alt when the icon carries meaning on its own. Line icons (Icons.tsx) stay for small controls.
+ */
+export function Icon3D({ name, className = "size-12", alt = "", sizes = "128px" }: { name: Icon3DName; className?: string; alt?: string; sizes?: string }) {
+  return <AssetImage name={`icon-${name}` as ImageName} alt={alt} sizes={sizes} className={`inline-block object-contain ${className}`} />;
+}
+
+/** True when the 3D set has this icon (for content that names icons by string). */
+export const has3D = (name: string): name is Icon3DName => `icon-${name}` in images;

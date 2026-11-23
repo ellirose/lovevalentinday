@@ -1,10 +1,10 @@
-import { nav, site } from "@/content/site";
+import { channel, nav, site } from "@/content/site";
 import { FrostingEdge } from "./Edges";
-import { Logo } from "./Icons";
+import { Icon, Logo } from "./Icons";
 import { ShareRow } from "./Social";
 
 const credits = [
-  { what: "Video y fotos «Baking cookies»", who: "Robert Cole", license: "CC0", href: "https://commons.wikimedia.org/wiki/File:Baking_cookies.ogv" },
+  { what: "Videos y fotos de las recetas", who: channel.name, license: "YouTube", href: channel.url },
 ];
 
 export function Footer() {
@@ -16,7 +16,12 @@ export function Footer() {
           <Logo size="lg" />
           <p className="mt-6 font-script text-[clamp(2.2rem,5vw,3.4rem)] leading-tight text-rose">{site.subtitle}</p>
           <p className="mt-2 font-display text-2xl font-bold text-rose-ink">{site.hashtag}</p>
-          <ShareRow className="mt-7 justify-center" />
+          <div className="mt-7 flex flex-wrap items-center justify-center gap-4">
+            <a href={channel.url} target="_blank" rel="noopener noreferrer" className="btn3d sm">
+              <span className="chip"><Icon name="youtube" /></span><span className="max-sm:hidden">{channel.name} en<span className="chip"><Icon name="youtube" /></span>{channel.name} en YouTubenbsp;</span>YouTube
+            </a>
+            <ShareRow />
+          </div>
         </div>
 
         <nav aria-label="Pie de página" className="mt-12">

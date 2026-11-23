@@ -10,7 +10,8 @@
     "start": "npx serve@14.2.4 out",
     "lint": "eslint",
     "assets": "node scripts/assets.mjs",
-    "codex": "node scripts/codex.mjs"
+    "codex": "node scripts/codex.mjs",
+    "sheets": "node scripts/sheets.mjs"
   },
   "dependencies": {
     "next": "16.4.6",

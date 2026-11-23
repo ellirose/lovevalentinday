@@ -20,6 +20,9 @@ const TS = join(root, "src", "content", "assets.generated.ts");
 const NAME = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const RASTER = new Set([".png", ".jpg", ".jpeg", ".webp"]);
 const DEFAULT_WIDTHS = [640, 1280, 1920];
+// Icons and marks (names starting with icon- or logo-) are shown small, so they get small files.
+const ICON_WIDTHS = [128, 256, 512];
+const defaultWidths = (name) => (/^(icon|logo)-/.test(name) ? ICON_WIDTHS : DEFAULT_WIDTHS);
 
 let sharp;
 try {
@@ -92,7 +95,7 @@ async function build() {
     const src = join(SRC.images, file);
     const optFile = join(SRC.images, `${name}.json`);
     const opts = readJson(optFile, {});
-    const key = hash(readFileSync(src).toString("base64"), JSON.stringify(opts), "v2"); // bump the version to re-encode everything after changing encoder settings
+    const key = hash(readFileSync(src).toString("base64"), JSON.stringify(opts), "v3"); // bump the version to re-encode everything after changing encoder settings
     const old = prev.images[name];
     if (old?.key === key && old.files.every((f) => existsSync(join(OUT, f)))) {
       next.images[name] = old;
@@ -110,7 +113,7 @@ async function build() {
     const alpha = meta.hasAlpha && (await img.clone().stats()).isOpaque === false;
     const fallback = alpha ? "png" : "jpeg";
     const fallbackExt = alpha ? "png" : "jpg";
-    const widths = [...new Set((opts.widths ?? DEFAULT_WIDTHS).map((w) => Math.min(w, width)))].sort((a, b) => a - b);
+    const widths = [...new Set((opts.widths ?? defaultWidths(name)).map((w) => Math.min(w, width)))].sort((a, b) => a - b);
     const maxBytes = (opts.maxKB ?? 350) * 1024;
     const files = [];
     const bytes = { avif: 0, webp: 0, [fallbackExt]: 0 };

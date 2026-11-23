@@ -1,24 +1,26 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { dayDate, highlights, preview, site } from "@/content/site";
+import { dayDate, highlights, preview, recipes, site } from "@/content/site";
 import { type DayState as State, label, N, OPEN_DAY, short, useDayState } from "./days";
 import { FrostingEdge } from "./Edges";
 import { HeartRing } from "./HeartRing";
 import { HeartStory } from "./HeartStory";
-import { Icon, IconName, LogoMark } from "./Icons";
+import { Icon, LogoMark } from "./Icons";
+import { Icon3D } from "./Assets";
 import { burst, downloadReminders, ShareRow, useShare, useToast } from "./Social";
 import { useSound } from "./SoundProvider";
 import { Eyebrow, Reveal, useReducedMotion } from "./ui";
-import { VideoPlayer } from "./VideoPlayer";
+import { YouTube } from "./YouTube";
 
 /* ───────── Story viewer ───────── */
 function StoryViewer({ day, state, onClose }: { day: number; state: State; onClose: () => void }) {
   const ref = useRef<HTMLDialogElement>(null);
   const [slide, setSlide] = useState(0);
   const [paused, setPaused] = useState(false);
-  const [videoProgress, setVideoProgress] = useState(0);
   const slides = state === "preview" ? 3 : 1;
+  const recipe = recipes.find((r) => r.slug === preview.recipe) ?? recipes[0];
+  const ingredients = recipe.groups.flatMap((g) => g.items);
 
   useEffect(() => {
     ref.current?.showModal();
@@ -58,9 +60,7 @@ function StoryViewer({ day, state, onClose }: { day: number; state: State; onClo
                     ? { transform: "scaleX(1)" }
                     : i > slide
                       ? { transform: "scaleX(0)" }
-                      : i === 0 && state === "preview"
-                        ? { transform: `scaleX(${videoProgress})` }
-                        : slides === 1 || i === slides - 1
+                      : (i === 0 && state === "preview") || slides === 1 || i === slides - 1
                           ? { transform: "scaleX(1)" }
                           : { animation: "progress 8s linear forwards", animationPlayState: paused ? "paused" : "running" }
                 }
@@ -90,9 +90,9 @@ function StoryViewer({ day, state, onClose }: { day: number; state: State; onClo
         >
           {state !== "preview" ? (
             <div className="grid h-full place-content-center gap-5 text-center">
-              <Icon name="heartFill" className="mx-auto size-24 text-rose-hi" />
+              <Icon3D name="heart" className="mx-auto size-28 drop" />
               <p className="font-display text-3xl font-bold">Este corazón ya está abierto</p>
-              <p className="text-white/90">Entra a tu cuenta para ver la clase y descargar la receta.</p>
+              <p className="text-white/90">Entra a tu cuenta para ver el video y descargar la receta.</p>
               <a href={site.buyerAreaUrl ?? "#precio"} onClick={() => ref.current?.close()} className="btn3d gold mx-auto">
                 <span className="chip"><Icon name="heartFill" className="text-rose" /></span>
                 {site.buyerAreaUrl ? "Entrar a mi calendario" : "Quiero mi calendario"}
@@ -100,31 +100,28 @@ function StoryViewer({ day, state, onClose }: { day: number; state: State; onClo
             </div>
           ) : slide === 0 ? (
             <div className="flex h-full flex-col gap-4 pb-2">
-              <VideoPlayer
-                src="/media/baking-cookies-720p.webm"
-                poster="/media/baking-cookies-poster.webp"
-                label="Clase de muestra"
-                className="min-h-0 flex-1 rounded-[26px]"
-                onProgress={setVideoProgress}
-                onEnded={next}
-              />
-              <p className="font-display text-2xl font-bold">La clase del día, paso a paso</p>
+              <YouTube id={recipe.videos[0].id} title={recipe.videos[0].title} className="min-h-0 flex-1 rounded-[26px]" />
+              <div>
+                <p className="font-display text-2xl font-bold leading-tight">{recipe.title}</p>
+                <p className="text-white/90">Paso a paso con Pedro, en su canal de YouTube</p>
+              </div>
             </div>
           ) : slide === 1 ? (
             <div className="grid h-full place-items-center">
               <article className="w-full rounded-[28px] bg-cream p-6 text-ink lift" style={{ animation: "pop-in .5s var(--ease-soft)" }}>
                 <p className="flex items-center gap-2 text-sm font-extrabold uppercase tracking-widest text-rose-ink">
-                  <Icon name="recipe" className="size-7" /> Receta en PDF
+                  <Icon3D name="recipe" className="size-9" /> Receta para descargar
                 </p>
-                <h3 className="mt-2 font-display text-3xl font-bold">{preview.recipe.title}</h3>
-                <ul className="mt-4 space-y-2.5 border-t-2 border-dashed border-line pt-4">
-                  {preview.recipe.ingredients.map((i) => (
-                    <li key={i} className="flex items-center gap-3 text-lg">
-                      <Icon name="heartFill" className="size-4 text-rose" />
+                <h3 className="mt-2 font-display text-3xl font-bold leading-tight">{recipe.title}</h3>
+                <ul className="mt-4 space-y-2 border-t-2 border-dashed border-line pt-4">
+                  {ingredients.slice(0, 6).map((i) => (
+                    <li key={i} className="flex items-start gap-3 text-base leading-snug">
+                      <Icon name="heartFill" className="mt-1 size-4 shrink-0 text-rose" />
                       {i}
                     </li>
                   ))}
                 </ul>
+                {ingredients.length > 6 && <p className="mt-2 text-base font-semibold text-muted">y {ingredients.length - 6} ingredientes más</p>}
                 <span className="btn3d dashed sm mt-5 w-full whitespace-normal text-center" aria-disabled="true">
                   <Icon name="download" className="size-5" /> Descarga disponible al comprar
                 </span>
@@ -140,7 +137,8 @@ function StoryViewer({ day, state, onClose }: { day: number; state: State; onClo
               </a>
             </div>
           )}
-          {slides > 1 && (
+          {/* Tap zones (not on the video slide, where they would cover YouTube's controls). */}
+          {slides > 1 && slide > 0 && (
             <>
               <button type="button" onClick={prev} aria-label="Anterior" className="absolute inset-y-0 left-0 z-0 w-1/4 cursor-w-resize" tabIndex={-1} />
               {slide < slides - 1 && <button type="button" onClick={next} aria-label="Siguiente" className="absolute inset-y-0 right-0 z-0 w-1/4 cursor-e-resize" tabIndex={-1} />}
@@ -216,12 +214,12 @@ export function Stories() {
       <FrostingEdge color="var(--c-surface-2)" />
       <div className="mx-auto max-w-7xl px-5">
         <div className="text-center">
-          <Reveal><Eyebrow className="justify-center">Del 1 al 14 de febrero</Eyebrow></Reveal>
+          <Reveal><Eyebrow icon="calendar" className="justify-center">Del 1 al 14 de febrero</Eyebrow></Reveal>
           <Reveal delay={0.08} as="h2" className="mx-auto mt-4 max-w-4xl font-display text-[clamp(2.6rem,6vw,5rem)] font-bold leading-[1.02]">
             14 historias, <span className="font-script font-normal text-rose">un corazón al día</span>
           </Reveal>
           <Reveal delay={0.16} as="p" className="mx-auto mt-5 max-w-2xl text-[clamp(1.1rem,1.6vw,1.3rem)] text-muted">
-            Cada corazón es una historia con su clase en video y su receta. Se abre en su fecha y se queda abierto para ti.
+            Cada corazón guarda una receta de Pedro. Se abre a las {site.openTime} de su fecha y se queda abierto para ti.
           </Reveal>
         </div>
 
@@ -230,7 +228,7 @@ export function Stories() {
           <div className="flex flex-wrap items-center gap-4 border-b border-line pb-5">
             <span className="story live size-16 shrink-0"><span className="grid size-full place-items-center bg-surface"><LogoMark className="size-11" /></span></span>
             <div className="min-w-[12rem] flex-1">
-              <p className="font-display text-2xl font-bold leading-tight">Calendario de San Valentín</p>
+              <p className="font-display text-2xl font-bold leading-tight">{site.name}</p>
               <p className="text-base text-muted">
                 {daysLeft !== null && daysLeft > 0 ? (
                   <>Primer corazón en <b className="text-rose-ink">{daysLeft} días</b> · Día 1 ya tiene vista previa</>
@@ -294,7 +292,7 @@ export function Stories() {
               <Reveal as="li" key={h.title} variant="zoom" delay={0.08 * i} className="flex flex-col items-center text-center">
                 <span className="story size-28">
                   <span className="grid size-full place-items-center bg-surface text-rose">
-                    <Icon name={h.icon as IconName} className="size-14" />
+                    <Icon3D name={h.icon} className="size-[72px]" />
                   </span>
                 </span>
                 <span className="-mt-4 rounded-full bg-goldfoil px-3 py-0.5 font-display text-lg font-extrabold text-wine shadow-[0_3px_0_#d98400]">{i + 1}</span>

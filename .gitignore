@@ -3,6 +3,8 @@ docs/chat-history/
 docs/voice-notes/
 docs/client-references/
 docs/ai-notes/
+docs/Unread/
+docs/downloads/
 docs/requirements/
 docs/plan/
 docs/design/San Valentín 2027_ Dulce Romance-1.png
@@ -11,6 +13,7 @@ Code/Calendario de San Valentín 2027.html
 # Build output and dependencies
 node_modules/
 .next/
+.next-sheets/
 out/
 
 # Local tooling

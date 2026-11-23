@@ -3,12 +3,12 @@
 import { useRef } from "react";
 import { categories, extras } from "@/content/site";
 import type { AssetIconName } from "@/content/assets.generated";
-import { AssetIcon } from "./Assets";
+import { AssetIcon, has3D, Icon3D } from "./Assets";
 import { TornEdge } from "./Edges";
 import { Icon, type IconName } from "./Icons";
 import { Eyebrow, Reveal, useReducedMotion } from "./ui";
 
-const tabs = ["var(--c-rose)", "#ff7a3d", "var(--c-rose-ink)", "#e8a400"];
+const tabs = ["var(--c-rose)", "#ff7a3d", "var(--c-rose-ink)", "#e8a400", "#d6336c"];
 
 /**
  * "¿Qué encontrarás dentro?": recipe-box index cards. As in the demo, the card under the pointer lifts and
@@ -50,13 +50,13 @@ function Deck() {
   };
 
   return (
-    <ul ref={deck} onPointerMove={onMove} onPointerLeave={onLeave} className="mt-16 grid gap-x-6 gap-y-14 [perspective:1400px] sm:grid-cols-2 lg:grid-cols-4">
+    <ul ref={deck} onPointerMove={onMove} onPointerLeave={onLeave} className="mt-16 grid gap-x-5 gap-y-14 [perspective:1400px] sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
       {categories.map((c, i) => (
         <Reveal as="li" key={c.title} variant="flip" delay={0.08 * i} className="pt-6">
           <article className="index-card h-full px-6 pb-8 lift" style={{ "--tab": tabs[i] } as React.CSSProperties}>
             <span className="index-tab">0{i + 1}</span>
             <span className="mt-2 grid size-20 place-items-center rounded-[24px] bg-surface text-rose lift">
-              <AssetIcon name={c.icon as AssetIconName} className="size-12" />
+              {has3D(c.icon) ? <Icon3D name={c.icon} className="size-16" /> : <AssetIcon name={c.icon as AssetIconName} className="size-12" />}
             </span>
             <h3 className="mt-5 font-display text-2xl font-bold leading-tight">{c.title}</h3>
             {"list" in c ? (
@@ -84,7 +84,7 @@ export function Inside() {
       <TornEdge color="var(--c-cream)" seed={17} />
       <div className="mx-auto max-w-7xl px-5">
         <div className="max-w-3xl">
-          <Reveal><Eyebrow>¿Qué encontrarás dentro?</Eyebrow></Reveal>
+          <Reveal><Eyebrow icon="rolling-pin">¿Qué encontrarás dentro?</Eyebrow></Reveal>
           <Reveal as="h2" delay={0.08} className="mt-4 font-display text-[clamp(2.4rem,5.2vw,4.4rem)] font-bold leading-[1.03]">
             Dulces recetas <span className="font-script font-normal text-rose">en cada corazón</span>
           </Reveal>
@@ -107,7 +107,7 @@ export function Inside() {
             {extras.map((x, i) => (
               <Reveal as="li" key={x.text} variant="zoom" delay={0.1 * i}>
                 <span className="inline-flex items-center gap-3 rounded-full bg-surface py-2 pl-2 pr-6 text-lg font-bold text-rose-ink shadow-[0_5px_0_var(--c-rose-ink),0_16px_30px_-12px_rgb(0_0_0/.35)]">
-                  <span className="grid size-11 place-items-center rounded-full bg-goldfoil text-wine"><Icon name={x.icon as IconName} className="size-6" /></span>
+                  {has3D(x.icon) ? <Icon3D name={x.icon} className="size-11" /> : <span className="grid size-11 place-items-center rounded-full bg-goldfoil text-wine"><Icon name={x.icon as IconName} className="size-6" /></span>}
                   {x.text}
                 </span>
               </Reveal>

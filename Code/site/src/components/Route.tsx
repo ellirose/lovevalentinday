@@ -1,8 +1,9 @@
 "use client";
 
-import { dayTitles } from "@/content/site";
+import { schedule, site } from "@/content/site";
 import { label, N, requestOpenDay, useDayState } from "./days";
 import { ArchEdge } from "./Edges";
+import { Icon3D } from "./Assets";
 import { Icon } from "./Icons";
 import { Eyebrow, Reveal } from "./ui";
 
@@ -14,12 +15,12 @@ export function Route() {
       <ArchEdge color="var(--c-bg)" />
       <div className="mx-auto max-w-6xl px-5">
         <div className="text-center">
-          <Reveal><Eyebrow className="justify-center">Tu ruta del amor</Eyebrow></Reveal>
+          <Reveal><Eyebrow icon="ticket" className="justify-center">Tu ruta del amor</Eyebrow></Reveal>
           <Reveal as="h2" delay={0.08} className="mt-4 font-display text-[clamp(2.4rem,5.2vw,4.4rem)] font-bold leading-[1.03]">
             Un día nuevo, <span className="font-script font-normal text-rose">una receta nueva</span>
           </Reveal>
           <Reveal as="p" delay={0.16} className="mx-auto mt-5 max-w-2xl text-lg text-muted">
-            Así se ve tu febrero: cada corazón trae su clase en video y su receta. Toca un día para verlo.
+            Así se ve tu febrero: cada mañana a las {site.openTime} se abre un corazón con su receta. Toca un día para verlo.
           </Reveal>
         </div>
 
@@ -28,6 +29,10 @@ export function Route() {
           {Array.from({ length: N }, (_, i) => i + 1).map((n) => {
             const st = state(n);
             const right = n % 2 === 0;
+            const day = schedule[n - 1];
+            const plan = day.kind === "plan";
+            // Pedro sends the order of the recipes later; until then the recipe is revealed on its day.
+            const title = day.title ?? "Receta del día";
             return (
               <li key={n} className="relative grid grid-cols-[52px_minmax(0,1fr)] items-center gap-4 py-3 md:grid-cols-[minmax(0,1fr)_64px_minmax(0,1fr)] md:gap-6">
                 {/* Node on the ribbon */}
@@ -46,7 +51,7 @@ export function Route() {
                   <button
                     type="button"
                     onClick={() => requestOpenDay(n)}
-                    aria-label={`Día ${n}, ${label(n)}: ${dayTitles[n - 1]}. ${st === "locked" ? "Bloqueado" : st === "preview" ? "Vista previa" : "Disponible"}`}
+                    aria-label={`Día ${n}, ${label(n)}: ${title}. ${st === "locked" ? "Bloqueado" : st === "preview" ? "Vista previa" : "Disponible"}`}
                     className={`group block w-full rounded-[22px] text-left ${right ? "" : "md:text-right"}`}
                   >
                     {/* The ticket lifts inside the button, so the hit area stays put under the pointer. */}
@@ -55,12 +60,15 @@ export function Route() {
                       <span className="first-letter:uppercase">{label(n)}</span>
                     </span>
                     <span className="mt-1 flex items-center gap-2 font-display text-2xl font-bold leading-snug text-ink md:inline-flex">
-                      {st === "locked" && <Icon name="lock" className="size-5 shrink-0 text-muted" />}
-                      {dayTitles[n - 1]}
+                      {st === "locked" && <Icon3D name="lock" className="size-7 shrink-0" />}
+                      {title}
                     </span>
                     <span className={`mt-3 flex flex-wrap items-center gap-2 ${right ? "" : "md:justify-end"}`}>
-                      <span className="inline-flex items-center gap-1.5 rounded-full bg-surface-2 px-3 py-1 text-sm font-bold text-rose-ink"><Icon name="video" className="size-4" />Video</span>
-                      <span className="inline-flex items-center gap-1.5 rounded-full bg-surface-2 px-3 py-1 text-sm font-bold text-rose-ink"><Icon name="recipe" className="size-4" />Receta PDF</span>
+                      {plan ? (
+                        <span className="inline-flex items-center gap-1.5 rounded-full bg-surface-2 px-3 py-1 text-sm font-bold text-rose-ink"><Icon name="heart" className="size-4" />Plan descargable</span>
+                      ) : (
+                        <span className="inline-flex items-center gap-1.5 rounded-full bg-surface-2 px-3 py-1 text-sm font-bold text-rose-ink"><Icon name="recipe" className="size-4" />Receta para descargar</span>
+                      )}
                       <span className={`rounded-full px-3 py-1 text-sm font-extrabold ${st === "locked" ? "bg-surface-2 text-muted" : st === "preview" ? "bg-goldfoil text-wine" : "bg-rose text-white"}`}>
                         {st === "locked" ? "Se abre ese día" : st === "preview" ? "Vista previa" : "¡Ya disponible!"}
                       </span>
@@ -72,7 +80,7 @@ export function Route() {
             );
           })}
         </ol>
-        <p className="mt-8 text-center text-sm text-muted">Títulos de muestra: la lista final de recetas llegará muy pronto.</p>
+        <p className="mt-8 text-center text-base text-muted">Cada receta se revela en su día. ¡Ven cada mañana a descubrirla!</p>
       </div>
     </section>
   );

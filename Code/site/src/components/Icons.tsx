@@ -1,3 +1,5 @@
+import { AssetImage } from "./Assets";
+
 // Original duotone icon set: a soft filled body, a crisp line drawing and a bright gold accent.
 type P = { className?: string; title?: string };
 
@@ -180,30 +182,11 @@ export function Icon({ name, className, title }: { name: IconName } & P) {
   return <C className={className} title={title} />;
 }
 
-/** Heart badge with a bright gold bow and "14": the product mark until Pedro picks a brand (Q7). */
+/** The brand mark: the glossy heart with a gold bow and "14" (assets/images/logo-mark.png). */
 export function LogoMark({ className = "size-11" }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 64 64" className={className} aria-hidden>
-      <defs>
-        <linearGradient id="lm-gold" x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0" stopColor="#fff1a8" />
-          <stop offset=".55" stopColor="#ffcc2e" />
-          <stop offset="1" stopColor="#ffa800" />
-        </linearGradient>
-      </defs>
-      <path d="M32 58C14 46 5 36 5 25 5 16.7 11.5 10 19.6 10c5.1 0 9.6 2.7 12.4 6.8C34.8 12.7 39.3 10 44.4 10 52.5 10 59 16.7 59 25c0 11-9 21-27 33Z" fill="var(--c-rose)" />
-      <path d="M14 24c0-4.4 3.2-7.6 7.2-7.6" stroke="#fff" strokeOpacity=".6" strokeWidth="3" strokeLinecap="round" fill="none" />
-      <path d="M32 15 22 8.5c-2-1.3-4.4.6-3.6 2.8l1.8 4.9c.6 1.6 2.4 2.4 4 1.8L32 15Zm0 0 10-6.5c2-1.3 4.4.6 3.6 2.8l-1.8 4.9c-.6 1.6-2.4 2.4-4 1.8L32 15Z" fill="url(#lm-gold)" stroke="#e89a00" strokeWidth=".8" />
-      <circle cx="32" cy="15" r="3.4" fill="#fff3b0" stroke="#e89a00" strokeWidth="1.2" />
-      <text x="32" y="42" textAnchor="middle" fontFamily="var(--font-playfair), Georgia, serif" fontWeight="800" fontSize="18" fill="#fff">14</text>
-    </svg>
-  );
+  return <AssetImage name="logo-mark" alt="" sizes="96px" className={`object-contain ${className}`} />;
 }
 
-/**
- * Brand lock-up. The script capitals of "San Valentín" rise well above their line box and swash to the
- * left, so the script line gets top and left room in em units: nothing touches the label or the heart.
- */
 export function Logo({ size = "md", compact = false }: { size?: "md" | "lg"; compact?: boolean }) {
   const lg = size === "lg";
   return (

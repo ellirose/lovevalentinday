@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { closing, dayDate, faqs, included, profile, site, testimonials } from "@/content/site";
-import { AssetImage } from "./Assets";
+import { buyNote, closing, dayDate, faqs, included, profile, site, testimonials } from "@/content/site";
+import { AssetImage, Icon3D } from "./Assets";
 import { useClock } from "./days";
 import { ArchEdge, RibbonEdge, StitchEdge, TornEdge } from "./Edges";
 import { GiftCard } from "./GiftCard";
@@ -10,7 +10,7 @@ import { Icon, LogoMark } from "./Icons";
 import { downloadReminders, LikeButton, ShareRow, useShare, useToast } from "./Social";
 import { SprinkleHeart } from "./SprinkleHeart";
 import { Eyebrow, Reveal, Tilt } from "./ui";
-import { VideoPlayer } from "./VideoPlayer";
+import { YouTube } from "./YouTube";
 
 const H2 = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
   <Reveal as="h2" delay={0.08} className={`mt-4 font-display text-[clamp(2.4rem,5.2vw,4.4rem)] font-bold leading-[1.03] ${className}`}>
@@ -55,27 +55,21 @@ function ReactionDock({ caption, tags }: { caption: string; tags: string }) {
   );
 }
 
-/* Object 1: a story screen with the class video. */
+/* Object 1: a story screen with one of Pedro's YouTube videos. */
 function StoryScreen() {
   return (
     <div className="relative mx-auto aspect-[9/14] w-full max-w-[340px] overflow-hidden rounded-[38px] border-[7px] border-surface bg-surface lift">
-      <div className="absolute inset-0"><VideoPlayer src="/media/baking-cookies-720p.webm" poster="/media/baking-cookies-poster.webp" label="Galletas horneándose" autoLoop className="size-full" /></div>
-      <div className="absolute inset-x-3 top-3 flex gap-1.5">
+      <div className="absolute inset-0"><YouTube id="YE1RcmFqKHE" title="Los mejores mini cheesecakes de chocolate" className="size-full" /></div>
+      <div className="pointer-events-none absolute inset-x-3 top-3 flex gap-1.5">
         {[0, 1, 2].map((i) => (
           <span key={i} className="h-1 flex-1 overflow-hidden rounded-full bg-white/35">
             {i === 0 && <span className="block h-full origin-left bg-goldfoil" style={{ animation: "progress 6s linear infinite" }} />}
           </span>
         ))}
       </div>
-      <div className="absolute inset-x-3 top-7 flex items-center gap-2.5">
+      <div className="pointer-events-none absolute inset-x-3 top-7 flex items-center gap-2.5">
         <span className="story size-10"><span className="grid size-full place-items-center bg-surface"><LogoMark className="size-7" /></span></span>
-        <p className="text-sm font-bold leading-tight text-white [text-shadow:0_1px_6px_rgb(0_0_0/.6)]">Clase del día<br /><span className="font-medium text-white/80">1 feb</span></p>
-      </div>
-      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-5 pt-16">
-        <p className="flex items-center gap-3 font-display text-2xl font-bold text-white">
-          <span className="grid size-11 place-items-center rounded-full bg-goldfoil text-wine shadow-[0_3px_0_#d98400]"><Icon name="video" className="size-6" /></span>
-          Clase en video
-        </p>
+        <p className="text-sm font-bold leading-tight text-white [text-shadow:0_1px_6px_rgb(0_0_0/.6)]">Sabores y Secretos PR<br /><span className="font-medium text-white/80">Paso a paso en YouTube</span></p>
       </div>
     </div>
   );
@@ -88,7 +82,7 @@ function RecipeCard() {
       <Tape className="-top-0 left-1/2 -translate-x-1/2 rotate-[-4deg]" />
       <article className="doily px-7 pb-16 pt-7 text-ink drop">
         <div className="flex items-start justify-between">
-          <p className="flex items-center gap-2 text-sm font-extrabold uppercase tracking-widest text-rose-ink"><Icon name="recipe" className="size-7" />Receta en PDF</p>
+          <p className="flex items-center gap-2 text-sm font-extrabold uppercase tracking-widest text-rose-ink"><Icon3D name="recipe" className="size-9" />Receta para descargar</p>
           <svg viewBox="0 0 48 48" className="size-12 text-rose" aria-hidden>
             <path d="M24 41C11 32 5 25 5 17.5 5 11.6 9.6 7 15.2 7c3.7 0 7 2 8.8 5 1.8-3 5.1-5 8.8-5C38.4 7 43 11.6 43 17.5 43 25 37 32 24 41Z" fill="none" stroke="currentColor" strokeWidth="3" strokeDasharray="4 4" />
           </svg>
@@ -100,7 +94,7 @@ function RecipeCard() {
             <span key={w} className="flex items-center gap-3"><Icon name="heartFill" className="size-3.5 text-rose" /><span className="h-2.5 rounded-full bg-line" style={{ width: `${w}%` }} /></span>
           ))}
         </div>
-        <span className="absolute -bottom-3 right-0 grid size-16 rotate-12 sm:-right-3 place-items-center rounded-full bg-goldfoil text-wine shadow-[0_4px_0_#d98400]"><Icon name="download" className="size-8" /></span>
+        <Icon3D name="download" className="absolute -bottom-4 right-0 size-20 rotate-6 drop sm:-right-4" />
       </article>
     </div>
   );
@@ -147,9 +141,9 @@ function LoveLetter() {
 
 export function Feed() {
   const items = [
-    { el: <StoryScreen />, caption: "Cada corazón trae una clase en video, paso a paso, para verla cuando quieras y descargarla.", tags: "#ClaseEnVideo" },
-    { el: <RecipeCard />, caption: "Y su receta en PDF: ingredientes y pasos listos para imprimir o guardar.", tags: "#RecetaDelDía" },
-    { el: <LoveLetter />, caption: "14 días, 14 clases, 14 recetas. Un corazón nuevo cada mañana de febrero.", tags: "#14Días" },
+    { el: <StoryScreen />, caption: "Pedro te enseña paso a paso en su canal de YouTube: dale play y hornea a su lado.", tags: "#PasoAPaso" },
+    { el: <RecipeCard />, caption: "Y cada día, su receta para descargar: ingredientes y pasos listos para imprimir o guardar.", tags: "#RecetaDelDía" },
+    { el: <LoveLetter />, caption: "Postres, bebidas y comidas de temporada, y un plan especial para el 14. Un corazón nuevo cada mañana.", tags: "#14Días" },
   ];
   return (
     <section id="incluye" className="tex-linen relative bg-blush py-28 sm:py-32">
@@ -157,7 +151,7 @@ export function Feed() {
       <div className="mx-auto max-w-7xl px-5">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div className="max-w-3xl">
-            <Reveal><Eyebrow>Qué incluye</Eyebrow></Reveal>
+            <Reveal><Eyebrow icon="heart">Qué incluye</Eyebrow></Reveal>
             <H2>Lo que guarda <span className="font-script font-normal text-rose">cada corazón</span></H2>
           </div>
           <Reveal delay={0.16} as="p" className="max-w-sm text-lg text-muted">Dale ❤ a lo que más te guste, compártelo o guarda las fechas en tu calendario.</Reveal>
@@ -182,7 +176,7 @@ export function Gift() {
       <TornEdge color="var(--c-bg)" />
       <div className="mx-auto max-w-7xl px-5">
         <div className="max-w-3xl">
-          <Reveal><Eyebrow>Regala amor</Eyebrow></Reveal>
+          <Reveal><Eyebrow icon="gift">Regala amor</Eyebrow></Reveal>
           <H2>Envía una <span className="font-script font-normal text-rose">postal de amor</span></H2>
           <Reveal delay={0.16} as="p" className="mt-5 text-lg text-muted">
             Escribe su nombre, elige un mensaje y compártela por WhatsApp o en tus historias. Tiene el tamaño perfecto para el teléfono.
@@ -222,7 +216,7 @@ export function About() {
                 <h3 className="mt-3 font-display text-3xl font-bold">{profile.name}</h3>
                 <p className="font-semibold text-rose-ink">{profile.line}</p>
                 <dl className="mt-5 grid grid-cols-3 rounded-[20px] border-2 border-dashed border-gold/70 p-3">
-                  {[["14", "clases"], ["14", "recetas"], ["14", "días"]].map(([n, l]) => (
+                  {[["14", "corazones"], ["1–14", "febrero"], ["8:00", "cada mañana"]].map(([n, l]) => (
                     <div key={l}>
                       <dt className="sr-only">{l}</dt>
                       <dd className="font-display text-3xl font-extrabold text-rose">{n}</dd>
@@ -246,7 +240,7 @@ export function About() {
         </Reveal>
 
         <div>
-          <Reveal><Eyebrow>¿Por qué es tan especial?</Eyebrow></Reveal>
+          <Reveal><Eyebrow icon="heart-cake">¿Por qué es tan especial?</Eyebrow></Reveal>
           <H2>Hecho con el corazón <span className="font-script font-normal text-rose">de Puerto Rico</span></H2>
           <Reveal as="p" delay={0.16} className="mt-6 max-w-2xl text-[clamp(1.1rem,1.6vw,1.3rem)] leading-relaxed text-muted">{profile.bio}</Reveal>
           <Reveal delay={0.24} className="mt-8 flex flex-wrap gap-3">
@@ -274,7 +268,7 @@ function Testimonials() {
   return (
     <div className="mt-24">
       <div className="text-center">
-        <Reveal><Eyebrow className="justify-center">Opiniones</Eyebrow></Reveal>
+        <Reveal><Eyebrow icon="comment" className="justify-center">Opiniones</Eyebrow></Reveal>
         <Reveal as="h3" delay={0.08} className="mt-4 font-display text-[clamp(2rem,4vw,3.2rem)] font-bold leading-tight">
           Lo que dicen nuestras <span className="font-script font-normal text-rose">alumnas</span>
         </Reveal>
@@ -309,19 +303,24 @@ function Testimonials() {
 /* ───────── Community: hashtag sticker, polaroids and reviews ───────── */
 export function Community() {
   const toast = useToast();
-  const frames = ["/media/frame-1.webp", "/media/frame-2.webp", "/media/frame-3.webp"];
+  // Pedro's own desserts, from his YouTube videos.
+  const frames = [
+    { id: "YE1RcmFqKHE", name: "Mini cheesecakes", alt: "Mini cheesecakes de chocolate con fresas" },
+    { id: "iZ64emSEu9s", name: "Mantequilla de chocolate", alt: "Mantequilla de chocolate con fresas y galletas" },
+    { id: "cUZJk2Yl_V4", name: "Cupcakes decorados", alt: "Cupcakes de chocolate y guineo decorados" },
+  ];
   return (
     <section id="comunidad" className="tex-paper relative bg-bg py-24 sm:py-28">
       <TornEdge color="var(--c-bg)" seed={11} />
       <div className="mx-auto max-w-7xl px-5">
         <div className="text-center">
-          <Reveal><Eyebrow className="justify-center">Comunidad</Eyebrow></Reveal>
+          <Reveal><Eyebrow icon="camera" className="justify-center">Comunidad</Eyebrow></Reveal>
           <H2>Horneamos <span className="font-script font-normal text-rose">juntos</span></H2>
         </div>
         <div className="mt-16 grid grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
           {/* Hashtag sticker */}
           <Reveal className="sticker tex-satin bg-rose p-7 text-white lift sm:p-10" style={{ rotate: "-1.2deg" }}>
-            <p className="flex items-center gap-3 text-sm font-extrabold uppercase tracking-[0.2em] text-white"><span className="grid size-8 place-items-center rounded-full bg-goldfoil text-wine"><Icon name="hash" className="size-5" /></span>Tu hashtag</p>
+            <p className="flex items-center gap-3 text-sm font-extrabold uppercase tracking-[0.2em] text-white"><Icon3D name="hashtag" className="size-10 drop" />Tu hashtag</p>
             <p className="mt-3 font-display text-[clamp(2rem,4.6vw,3.6rem)] font-extrabold leading-tight text-white [text-shadow:0_3px_0_var(--c-rose-ink)]">
               {/* Line breaks only between the words of the hashtag, never inside one. */}
               {site.hashtag.split(/(?<=[a-z])(?=[A-Z0-9])/).map((w, i) => (i ? [<wbr key={i} />, w] : w))}
@@ -349,20 +348,22 @@ export function Community() {
           {/* Polaroids */}
           <ul className="grid grid-cols-2 gap-6">
             {frames.map((f, i) => (
-              <Reveal as="li" key={f} variant="zoom" delay={0.08 * i} className="relative">
+              <Reveal as="li" key={f.id} variant="zoom" delay={0.08 * i} className="relative">
                 <Tape className="-top-3 left-1/2 -translate-x-1/2" />
+                <a href={`https://youtu.be/${f.id}`} target="_blank" rel="noopener noreferrer" aria-label={`${f.name}: ver el video en YouTube`} className="block">
                 <figure className="rounded-[8px] bg-white p-2.5 pb-3 shadow-[0_18px_30px_-14px_rgb(var(--shadow-rgb)/0.5)] transition duration-500 hover:rotate-0 hover:scale-105" style={{ rotate: `${[-4, 3, -2][i]}deg` }}>
                   {/* eslint-disable-next-line @next/next/no-img-element -- static export, no image optimizer */}
-                  <img src={f} alt="Galletas horneándose" loading="lazy" className="aspect-square w-full rounded-[4px] object-cover" />
-                  <figcaption className="mt-2 text-center font-script text-2xl leading-none text-rose">Inspiración</figcaption>
+                  <img src={`https://i.ytimg.com/vi/${f.id}/maxresdefault.jpg`} alt={f.alt} loading="lazy" className="aspect-square w-full rounded-[4px] object-cover" />
+                  <figcaption className="mt-2 text-center font-script text-2xl leading-none text-rose">{f.name}</figcaption>
                 </figure>
+                </a>
               </Reveal>
             ))}
             <Reveal as="li" variant="zoom" delay={0.24} className="relative">
               <Tape className="-top-3 left-1/2 -translate-x-1/2 rotate-6" />
               <div className="grid aspect-[0.86] place-items-center rounded-[8px] border-[3px] border-dashed border-rose/50 bg-surface p-3 text-center text-rose-ink" style={{ rotate: "4deg" }}>
                 <div>
-                  <Icon name="camera" className="mx-auto size-12" />
+                  <Icon3D name="camera" className="mx-auto size-16" />
                   <p className="mt-2 font-bold leading-tight">Tu foto aquí</p>
                 </div>
               </div>
@@ -410,8 +411,8 @@ export function Offer() {
       <TornEdge color="var(--c-cream)" seed={23} />
       <div className="mx-auto max-w-6xl px-5">
         <div className="text-center">
-          <Reveal><Eyebrow className="justify-center">Edición San Valentín 2027</Eyebrow></Reveal>
-          <H2>Regálate <span className="font-script font-normal text-rose">14 días</span> de recetas</H2>
+          <Reveal><Eyebrow icon="ticket" className="justify-center">Edición San Valentín 2027</Eyebrow></Reveal>
+          <H2>Regálate <span className="font-script font-normal text-rose">14 días</span> de dulce amor</H2>
         </div>
         <div className="mt-16 grid grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
           <Reveal variant="left">
@@ -430,7 +431,8 @@ export function Offer() {
                     ) : (
                       <p className="mt-4 font-display text-[clamp(3rem,6.4vw,4.6rem)] font-extrabold leading-none text-white [text-shadow:0_4px_0_var(--c-rose-ink)]">Muy pronto</p>
                     )}
-                    <p className="mt-4 text-lg text-white/95">Pago único. Un corazón nuevo cada día del 1 al 14 de febrero.</p>
+                    <p className="mt-4 text-lg text-white/95">Pago único. Un corazón nuevo cada mañana, del 1 al 14 de febrero.</p>
+                    <p className="mt-4 flex items-start gap-2.5 rounded-2xl bg-white/15 p-3 text-base font-semibold text-white"><Icon3D name="calendar" className="size-9 shrink-0" />{buyNote}</p>
                     <Countdown />
                     <div className="mt-8 flex flex-wrap gap-4">
                       {site.checkoutUrl ? (
@@ -509,7 +511,7 @@ export function Faq() {
       <StitchEdge />
       <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 px-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)]">
         <div>
-          <Reveal><Eyebrow>Preguntas</Eyebrow></Reveal>
+          <Reveal><Eyebrow icon="chat">Preguntas</Eyebrow></Reveal>
           <H2>¿Tienes <span className="font-script font-normal text-rose">dudas?</span></H2>
           <Reveal delay={0.16} as="p" className="mt-5 max-w-sm text-lg text-muted">Toca una pregunta y te respondemos al momento, como en un chat.</Reveal>
         </div>

@@ -4,6 +4,7 @@ import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { Inside } from "@/components/Inside";
 import { Intro } from "@/components/Intro";
+import { Recipes } from "@/components/Recipes";
 import { Route } from "@/components/Route";
 import { About, Closing, Community, Faq, Feed, Gift, Offer } from "@/components/Sections";
 import { ToastProvider } from "@/components/Social";
@@ -21,6 +22,7 @@ export default function Home() {
         <Intro />
         <Stories />
         <Route />
+        <Recipes />
         <Feed />
         <Inside />
         <Gift />

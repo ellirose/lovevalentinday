@@ -110,7 +110,7 @@ export function CursorHearts() {
       ctx.clearRect(0, 0, W, H);
 
       // Floating hearts: drift up, sway, swerve away from the pointer, and keep off the content.
-      if (performance.now() - measuredAt > 400) {
+      if (performance.now() - measuredAt > 200) {
         measure();
         measuredAt = performance.now();
       }
@@ -236,12 +236,21 @@ export function CursorHearts() {
     addEventListener("resize", size);
     addEventListener("pointermove", move, { passive: true });
     addEventListener("pointerdown", down, { passive: true });
+    // Re-measure at once when content moves inside a scrolling box (the chat) or new content appears.
+    const remeasure = (e?: Event) => {
+      if (!e || e.target !== document) measuredAt = -1e9;
+    };
+    addEventListener("scroll", remeasure, { capture: true, passive: true });
+    const mo = new MutationObserver(() => remeasure());
+    mo.observe(document.body, { childList: true, subtree: true });
     document.documentElement.addEventListener("pointerleave", leave);
     return () => {
       cancelAnimationFrame(raf);
       removeEventListener("resize", size);
       removeEventListener("pointermove", move);
       removeEventListener("pointerdown", down);
+      removeEventListener("scroll", remeasure, { capture: true });
+      mo.disconnect();
       document.documentElement.removeEventListener("pointerleave", leave);
     };
   }, []);

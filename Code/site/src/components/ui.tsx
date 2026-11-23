@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useSyncExternalStore } from "react";
+import { Icon3D, type Icon3DName } from "./Assets";
 
 /** Fades and moves children into place when they scroll into view. */
 export function Reveal({
@@ -75,10 +76,11 @@ export function useReducedMotion() {
   return useSyncExternalStore(subscribeRM, () => window.matchMedia(RM).matches, () => false);
 }
 
-export function Eyebrow({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+/** Small label above a heading. With an icon, the 3D icon replaces the thin dash. */
+export function Eyebrow({ children, className = "", icon }: { children: React.ReactNode; className?: string; icon?: Icon3DName }) {
   return (
     <p className={`inline-flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.28em] text-rose-ink ${className}`}>
-      <span aria-hidden className="h-px w-8 bg-current opacity-60" />
+      {icon ? <Icon3D name={icon} className="size-11 drop" /> : <span aria-hidden className="h-px w-8 bg-current opacity-60" />}
       {children}
     </p>
   );

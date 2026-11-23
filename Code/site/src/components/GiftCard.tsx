@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { gift, site } from "@/content/site";
+import { Icon3D } from "./Assets";
 import { Icon } from "./Icons";
 import { pageUrl, useToast } from "./Social";
 
@@ -198,7 +199,7 @@ export function GiftCard() {
               </span>
               <span aria-hidden className="stamp rotate-3">
                 <span className="grid h-24 w-20 place-items-center rounded-[2px] bg-goldfoil text-rose">
-                  <Icon name="heartFill" className="size-10" />
+                  <Icon3D name="heart" className="size-14 drop" />
                 </span>
               </span>
             </div>

@@ -1,7 +1,7 @@
 {
   "images": {
     "cookie-heart": {
-      "key": "c6a32babac2000fa",
+      "key": "48a98e3785fec5ca",
       "width": 1024,
       "height": 1024,
       "alpha": true,
@@ -23,6 +23,733 @@
         "cookie-heart-1024.webp",
         "cookie-heart-1024.png"
       ]
+    },
+    "icon-bell": {
+      "key": "45be1e8e31bf174d",
+      "width": 1024,
+      "height": 1024,
+      "alpha": true,
+      "alt": "Avisos",
+      "widths": [
+        128,
+        256,
+        512
+      ],
+      "ext": "png",
+      "formats": [
+        "avif",
+        "webp"
+      ],
+      "files": [
+        "icon-bell-128.avif",
+        "icon-bell-128.webp",
+        "icon-bell-128.png",
+        "icon-bell-256.avif",
+        "icon-bell-256.webp",
+        "icon-bell-256.png",
+        "icon-bell-512.avif",
+        "icon-bell-512.webp",
+        "icon-bell-512.png"
+      ]
+    },
+    "icon-bookmark": {
+      "key": "a89419d7e93ddb16",
+      "width": 1024,
+      "height": 1024,
+      "alpha": true,
+      "alt": "Guardar",
+      "widths": [
+        128,
+        256,
+        512
+      ],
+      "ext": "png",
+      "formats": [
+        "avif",
+        "webp"
+      ],
+      "files": [
+        "icon-bookmark-128.avif",
+        "icon-bookmark-128.webp",
+        "icon-bookmark-128.png",
+        "icon-bookmark-256.avif",
+        "icon-bookmark-256.webp",
+        "icon-bookmark-256.png",
+        "icon-bookmark-512.avif",
+        "icon-bookmark-512.webp",
+        "icon-bookmark-512.png"
+      ]
+    },
+    "icon-calendar": {
+      "key": "3baf6d83a697bcf5",
+      "width": 1024,
+      "height": 1024,
+      "alpha": true,
+      "alt": "Calendario",
+      "widths": [
+        128,
+        256,
+        512
+      ],
+      "ext": "png",
+      "formats": [
+        "avif",
+        "webp"
+      ],
+      "files": [
+        "icon-calendar-128.avif",
+        "icon-calendar-128.webp",
+        "icon-calendar-128.png",
+        "icon-calendar-256.avif",
+        "icon-calendar-256.webp",
+        "icon-calendar-256.png",
+        "icon-calendar-512.avif",
+        "icon-calendar-512.webp",
+        "icon-calendar-512.png"
+      ]
+    },
+    "icon-camera": {
+      "key": "e5519e010679ca85",
+      "width": 1024,
+      "height": 1024,
+      "alpha": true,
+      "alt": "Cámara",
+      "widths": [
+        128,
+        256,
+        512
+      ],
+      "ext": "png",
+      "formats": [
+        "avif",
+        "webp"
+      ],
+      "files": [
+        "icon-camera-128.avif",
+        "icon-camera-128.webp",
+        "icon-camera-128.png",
+        "icon-camera-256.avif",
+        "icon-camera-256.webp",
+        "icon-camera-256.png",
+        "icon-camera-512.avif",
+        "icon-camera-512.webp",
+        "icon-camera-512.png"
+      ]
+    },
+    "icon-chat": {
+      "key": "60733001940d3089",
+      "width": 1023,
+      "height": 1023,
+      "alpha": true,
+      "alt": "Chat",
+      "widths": [
+        128,
+        256,
+        512
+      ],
+      "ext": "png",
+      "formats": [
+        "avif",
+        "webp"
+      ],
+      "files": [
+        "icon-chat-128.avif",
+        "icon-chat-128.webp",
+        "icon-chat-128.png",
+        "icon-chat-256.avif",
+        "icon-chat-256.webp",
+        "icon-chat-256.png",
+        "icon-chat-512.avif",
+        "icon-chat-512.webp",
+        "icon-chat-512.png"
+      ]
+    },
+    "icon-comment": {
+      "key": "7824063a65e99869",
+      "width": 1010,
+      "height": 1010,
+      "alpha": true,
+      "alt": "Comentario",
+      "widths": [
+        128,
+        256,
+        512
+      ],
+      "ext": "png",
+      "formats": [
+        "avif",
+        "webp"
+      ],
+      "files": [
+        "icon-comment-128.avif",
+        "icon-comment-128.webp",
+        "icon-comment-128.png",
+        "icon-comment-256.avif",
+        "icon-comment-256.webp",
+        "icon-comment-256.png",
+        "icon-comment-512.avif",
+        "icon-comment-512.webp",
+        "icon-comment-512.png"
+      ]
+    },
+    "icon-device": {
+      "key": "5b502789a6282bc2",
+      "width": 1024,
+      "height": 1024,
+      "alpha": true,
+      "alt": "Móvil",
+      "widths": [
+        128,
+        256,
+        512
+      ],
+      "ext": "png",
+      "formats": [
+        "avif",
+        "webp"
+      ],
+      "files": [
+        "icon-device-128.avif",
+        "icon-device-128.webp",
+        "icon-device-128.png",
+        "icon-device-256.avif",
+        "icon-device-256.webp",
+        "icon-device-256.png",
+        "icon-device-512.avif",
+        "icon-device-512.webp",
+        "icon-device-512.png"
+      ]
+    },
+    "icon-download": {
+      "key": "eb30b7b84dfdb548",
+      "width": 1008,
+      "height": 1008,
+      "alpha": true,
+      "alt": "Descargar",
+      "widths": [
+        128,
+        256,
+        512
+      ],
+      "ext": "png",
+      "formats": [
+        "avif",
+        "webp"
+      ],
+      "files": [
+        "icon-download-128.avif",
+        "icon-download-128.webp",
+        "icon-download-128.png",
+        "icon-download-256.avif",
+        "icon-download-256.webp",
+        "icon-download-256.png",
+        "icon-download-512.avif",
+        "icon-download-512.webp",
+        "icon-download-512.png"
+      ]
+    },
+    "icon-ganache-drip": {
+      "key": "d9d10aa6f6536f3b",
+      "width": 1024,
+      "height": 1024,
+      "alpha": true,
+      "alt": "Pastel con ganache",
+      "widths": [
+        128,
+        256,
+        512
+      ],
+      "ext": "png",
+      "formats": [
+        "avif",
+        "webp"
+      ],
+      "files": [
+        "icon-ganache-drip-128.avif",
+        "icon-ganache-drip-128.webp",
+        "icon-ganache-drip-128.png",
+        "icon-ganache-drip-256.avif",
+        "icon-ganache-drip-256.webp",
+        "icon-ganache-drip-256.png",
+        "icon-ganache-drip-512.avif",
+        "icon-ganache-drip-512.webp",
+        "icon-ganache-drip-512.png"
+      ]
+    },
+    "icon-gift": {
+      "key": "26c868e0fb011238",
+      "width": 1024,
+      "height": 1024,
+      "alpha": true,
+      "alt": "Regalo",
+      "widths": [
+        128,
+        256,
+        512
+      ],
+      "ext": "png",
+      "formats": [
+        "avif",
+        "webp"
+      ],
+      "files": [
+        "icon-gift-128.avif",
+        "icon-gift-128.webp",
+        "icon-gift-128.png",
+        "icon-gift-256.avif",
+        "icon-gift-256.webp",
+        "icon-gift-256.png",
+        "icon-gift-512.avif",
+        "icon-gift-512.webp",
+        "icon-gift-512.png"
+      ]
+    },
+    "icon-hashtag": {
+      "key": "b96d0a3b95e74a5a",
+      "width": 1024,
+      "height": 1024,
+      "alpha": true,
+      "alt": "Hashtag",
+      "widths": [
+        128,
+        256,
+        512
+      ],
+      "ext": "png",
+      "formats": [
+        "avif",
+        "webp"
+      ],
+      "files": [
+        "icon-hashtag-128.avif",
+        "icon-hashtag-128.webp",
+        "icon-hashtag-128.png",
+        "icon-hashtag-256.avif",
+        "icon-hashtag-256.webp",
+        "icon-hashtag-256.png",
+        "icon-hashtag-512.avif",
+        "icon-hashtag-512.webp",
+        "icon-hashtag-512.png"
+      ]
+    },
+    "icon-heart-cake": {
+      "key": "9c845e5f66306386",
+      "width": 1024,
+      "height": 1024,
+      "alpha": true,
+      "alt": "Pastel de corazón",
+      "widths": [
+        128,
+        256,
+        512
+      ],
+      "ext": "png",
+      "formats": [
+        "avif",
+        "webp"
+      ],
+      "files": [
+        "icon-heart-cake-128.avif",
+        "icon-heart-cake-128.webp",
+        "icon-heart-cake-128.png",
+        "icon-heart-cake-256.avif",
+        "icon-heart-cake-256.webp",
+        "icon-heart-cake-256.png",
+        "icon-heart-cake-512.avif",
+        "icon-heart-cake-512.webp",
+        "icon-heart-cake-512.png"
+      ]
+    },
+    "icon-heart": {
+      "key": "1192ef0c61ca747e",
+      "width": 1024,
+      "height": 1024,
+      "alpha": true,
+      "alt": "Corazón",
+      "widths": [
+        128,
+        256,
+        512
+      ],
+      "ext": "png",
+      "formats": [
+        "avif",
+        "webp"
+      ],
+      "files": [
+        "icon-heart-128.avif",
+        "icon-heart-128.webp",
+        "icon-heart-128.png",
+        "icon-heart-256.avif",
+        "icon-heart-256.webp",
+        "icon-heart-256.png",
+        "icon-heart-512.avif",
+        "icon-heart-512.webp",
+        "icon-heart-512.png"
+      ]
+    },
+    "icon-hot-cocoa": {
+      "key": "fb3e529db6600186",
+      "width": 1024,
+      "height": 1024,
+      "alpha": true,
+      "alt": "Bebida caliente",
+      "widths": [
+        96,
+        192,
+        384
+      ],
+      "ext": "png",
+      "formats": [
+        "avif",
+        "webp"
+      ],
+      "files": [
+        "icon-hot-cocoa-96.avif",
+        "icon-hot-cocoa-96.webp",
+        "icon-hot-cocoa-96.png",
+        "icon-hot-cocoa-192.avif",
+        "icon-hot-cocoa-192.webp",
+        "icon-hot-cocoa-192.png",
+        "icon-hot-cocoa-384.avif",
+        "icon-hot-cocoa-384.webp",
+        "icon-hot-cocoa-384.png"
+      ]
+    },
+    "icon-link": {
+      "key": "2005254170b422ba",
+      "width": 1024,
+      "height": 1024,
+      "alpha": true,
+      "alt": "Enlace",
+      "widths": [
+        128,
+        256,
+        512
+      ],
+      "ext": "png",
+      "formats": [
+        "avif",
+        "webp"
+      ],
+      "files": [
+        "icon-link-128.avif",
+        "icon-link-128.webp",
+        "icon-link-128.png",
+        "icon-link-256.avif",
+        "icon-link-256.webp",
+        "icon-link-256.png",
+        "icon-link-512.avif",
+        "icon-link-512.webp",
+        "icon-link-512.png"
+      ]
+    },
+    "icon-lock": {
+      "key": "6bcfe38b61e0ea32",
+      "width": 1020,
+      "height": 1020,
+      "alpha": true,
+      "alt": "Candado",
+      "widths": [
+        128,
+        256,
+        512
+      ],
+      "ext": "png",
+      "formats": [
+        "avif",
+        "webp"
+      ],
+      "files": [
+        "icon-lock-128.avif",
+        "icon-lock-128.webp",
+        "icon-lock-128.png",
+        "icon-lock-256.avif",
+        "icon-lock-256.webp",
+        "icon-lock-256.png",
+        "icon-lock-512.avif",
+        "icon-lock-512.webp",
+        "icon-lock-512.png"
+      ]
+    },
+    "icon-piping-bag": {
+      "key": "dc71b10e5135d34b",
+      "width": 1024,
+      "height": 1024,
+      "alpha": true,
+      "alt": "Manga pastelera",
+      "widths": [
+        128,
+        256,
+        512
+      ],
+      "ext": "png",
+      "formats": [
+        "avif",
+        "webp"
+      ],
+      "files": [
+        "icon-piping-bag-128.avif",
+        "icon-piping-bag-128.webp",
+        "icon-piping-bag-128.png",
+        "icon-piping-bag-256.avif",
+        "icon-piping-bag-256.webp",
+        "icon-piping-bag-256.png",
+        "icon-piping-bag-512.avif",
+        "icon-piping-bag-512.webp",
+        "icon-piping-bag-512.png"
+      ]
+    },
+    "icon-recipe": {
+      "key": "e367168dc9e5ba81",
+      "width": 1024,
+      "height": 1024,
+      "alpha": true,
+      "alt": "Receta",
+      "widths": [
+        128,
+        256,
+        512
+      ],
+      "ext": "png",
+      "formats": [
+        "avif",
+        "webp"
+      ],
+      "files": [
+        "icon-recipe-128.avif",
+        "icon-recipe-128.webp",
+        "icon-recipe-128.png",
+        "icon-recipe-256.avif",
+        "icon-recipe-256.webp",
+        "icon-recipe-256.png",
+        "icon-recipe-512.avif",
+        "icon-recipe-512.webp",
+        "icon-recipe-512.png"
+      ]
+    },
+    "icon-rolling-pin": {
+      "key": "830cb7a339c5e5db",
+      "width": 1024,
+      "height": 1024,
+      "alpha": true,
+      "alt": "Rodillo",
+      "widths": [
+        128,
+        256,
+        512
+      ],
+      "ext": "png",
+      "formats": [
+        "avif",
+        "webp"
+      ],
+      "files": [
+        "icon-rolling-pin-128.avif",
+        "icon-rolling-pin-128.webp",
+        "icon-rolling-pin-128.png",
+        "icon-rolling-pin-256.avif",
+        "icon-rolling-pin-256.webp",
+        "icon-rolling-pin-256.png",
+        "icon-rolling-pin-512.avif",
+        "icon-rolling-pin-512.webp",
+        "icon-rolling-pin-512.png"
+      ]
+    },
+    "icon-share": {
+      "key": "125847828d0e3a1b",
+      "width": 1024,
+      "height": 1024,
+      "alpha": true,
+      "alt": "Compartir",
+      "widths": [
+        128,
+        256,
+        512
+      ],
+      "ext": "png",
+      "formats": [
+        "avif",
+        "webp"
+      ],
+      "files": [
+        "icon-share-128.avif",
+        "icon-share-128.webp",
+        "icon-share-128.png",
+        "icon-share-256.avif",
+        "icon-share-256.webp",
+        "icon-share-256.png",
+        "icon-share-512.avif",
+        "icon-share-512.webp",
+        "icon-share-512.png"
+      ]
+    },
+    "icon-sparkle": {
+      "key": "536c6a49eb5f766b",
+      "width": 997,
+      "height": 997,
+      "alpha": true,
+      "alt": "Destello",
+      "widths": [
+        128,
+        256,
+        512
+      ],
+      "ext": "png",
+      "formats": [
+        "avif",
+        "webp"
+      ],
+      "files": [
+        "icon-sparkle-128.avif",
+        "icon-sparkle-128.webp",
+        "icon-sparkle-128.png",
+        "icon-sparkle-256.avif",
+        "icon-sparkle-256.webp",
+        "icon-sparkle-256.png",
+        "icon-sparkle-512.avif",
+        "icon-sparkle-512.webp",
+        "icon-sparkle-512.png"
+      ]
+    },
+    "icon-strawberry": {
+      "key": "1c73d05eb4477f64",
+      "width": 1024,
+      "height": 1024,
+      "alpha": true,
+      "alt": "Fresa",
+      "widths": [
+        128,
+        256,
+        512
+      ],
+      "ext": "png",
+      "formats": [
+        "avif",
+        "webp"
+      ],
+      "files": [
+        "icon-strawberry-128.avif",
+        "icon-strawberry-128.webp",
+        "icon-strawberry-128.png",
+        "icon-strawberry-256.avif",
+        "icon-strawberry-256.webp",
+        "icon-strawberry-256.png",
+        "icon-strawberry-512.avif",
+        "icon-strawberry-512.webp",
+        "icon-strawberry-512.png"
+      ]
+    },
+    "icon-ticket": {
+      "key": "5b32d1a3d3bca46c",
+      "width": 1024,
+      "height": 1024,
+      "alpha": true,
+      "alt": "Entrada",
+      "widths": [
+        128,
+        256,
+        512
+      ],
+      "ext": "png",
+      "formats": [
+        "avif",
+        "webp"
+      ],
+      "files": [
+        "icon-ticket-128.avif",
+        "icon-ticket-128.webp",
+        "icon-ticket-128.png",
+        "icon-ticket-256.avif",
+        "icon-ticket-256.webp",
+        "icon-ticket-256.png",
+        "icon-ticket-512.avif",
+        "icon-ticket-512.webp",
+        "icon-ticket-512.png"
+      ]
+    },
+    "icon-video": {
+      "key": "89e03a547044a518",
+      "width": 999,
+      "height": 999,
+      "alpha": true,
+      "alt": "Video",
+      "widths": [
+        128,
+        256,
+        512
+      ],
+      "ext": "png",
+      "formats": [
+        "avif",
+        "webp"
+      ],
+      "files": [
+        "icon-video-128.avif",
+        "icon-video-128.webp",
+        "icon-video-128.png",
+        "icon-video-256.avif",
+        "icon-video-256.webp",
+        "icon-video-256.png",
+        "icon-video-512.avif",
+        "icon-video-512.webp",
+        "icon-video-512.png"
+      ]
+    },
+    "icon-whisk": {
+      "key": "9f629726827ad09b",
+      "width": 1024,
+      "height": 1024,
+      "alpha": true,
+      "alt": "Batidor",
+      "widths": [
+        128,
+        256,
+        512
+      ],
+      "ext": "png",
+      "formats": [
+        "avif"
+      ],
+      "files": [
+        "icon-whisk-128.avif",
+        "icon-whisk-128.webp",
+        "icon-whisk-128.png",
+        "icon-whisk-256.avif",
+        "icon-whisk-256.webp",
+        "icon-whisk-256.png",
+        "icon-whisk-512.avif",
+        "icon-whisk-512.webp",
+        "icon-whisk-512.png"
+      ]
+    },
+    "logo-mark": {
+      "key": "454c22c39a7256db",
+      "width": 1022,
+      "height": 1022,
+      "alpha": true,
+      "alt": "",
+      "widths": [
+        128,
+        256,
+        512
+      ],
+      "ext": "png",
+      "formats": [
+        "avif",
+        "webp"
+      ],
+      "files": [
+        "logo-mark-128.avif",
+        "logo-mark-128.webp",
+        "logo-mark-128.png",
+        "logo-mark-256.avif",
+        "logo-mark-256.webp",
+        "logo-mark-256.png",
+        "logo-mark-512.avif",
+        "logo-mark-512.webp",
+        "logo-mark-512.png"
+      ]
     }
   },
   "icons": {
@@ -31,6 +758,9 @@
     },
     "heart-cake": {
       "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 48 48\" fill=\"none\" width=\"100%\" height=\"100%\" aria-hidden=\"true\" focusable=\"false\"><g stroke=\"currentColor\" stroke-width=\"2.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M7 22v6c0 3 10 6 17 8 7-2 17-5 17-8v-6c0-5-12-6-17-1-5-5-17-4-17 1Z\" fill=\"currentColor\" fill-opacity=\".16\"/><path d=\"M7 22c0 3 10 6 17 8 7-2 17-5 17-8\"/><path d=\"M14 14v6c0 2 6 5 10 6 4-1 10-4 10-6v-6c0-4-7-5-10-1-3-4-10-3-10 1Z\" fill=\"currentColor\" fill-opacity=\".16\"/><path d=\"M14 14c0 2 6 5 10 6 4-1 10-4 10-6M5 36h38M24 36v7M16 43h16\"/></g><path d=\"M24 12c-2-1.5-4-3-4-4.8a2.2 2.2 0 0 1 4-1.3 2.2 2.2 0 0 1 4 1.3C28 9 26 10.5 24 12Z\" fill=\"#ffc21a\"/></svg>"
+    },
+    "hot-cocoa": {
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 48 48\" fill=\"none\" width=\"100%\" height=\"100%\" aria-hidden=\"true\" focusable=\"false\"><g stroke=\"currentColor\" stroke-width=\"2.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M23 23h2a4 4 0 0 1 0 8h-2\"/><path d=\"M5 20h18v10a9 9 0 0 1-18 0Z\" fill=\"currentColor\" fill-opacity=\".16\"/><path d=\"M5 20q9 5 18 0M10 15c-4-4 3-5 0-9M18 16l1-2\"/><path d=\"M30 34l6-9 7 9v3H30Z\" fill=\"currentColor\" fill-opacity=\".16\"/><path d=\"M30 34h13M27 40q9 5 18 0\"/></g><path d=\"M19 12c-2-1.4-4-3-4-4.8A2.2 2.2 0 0 1 19 6a2.2 2.2 0 0 1 4 1.2c0 1.8-2 3.4-4 4.8Z\" fill=\"#ffc21a\"/></svg>"
     },
     "piping-bag": {
       "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 48 48\" fill=\"none\" width=\"100%\" height=\"100%\" aria-hidden=\"true\" focusable=\"false\"><g stroke=\"currentColor\" stroke-width=\"2.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m12 11-5-6 10 1-2 5\" fill=\"currentColor\" fill-opacity=\".16\"/><path d=\"M12 11C5 18 8 26 25 31l6-6C26 8 19 5 12 11Z\" fill=\"currentColor\" fill-opacity=\".16\"/><path d=\"m25 31 5 5 1-3 3 1-1-3 3-1-5-5M13 16c-1 4 3 8 8 10\"/><path d=\"M37 32c2-2 5 0 5 2 3 0 4 4 2 6 0 3-4 5-6 3-3 2-6 0-6-3-3-2-1-6 2-6 0-2 1-3 3-2Z\" fill=\"#ffc21a\"/><path d=\"M40 36c-3-2-6 1-4 3 1 2 4 1 4-1\"/></g></svg>"
